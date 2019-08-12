@@ -1,10 +1,10 @@
-## **Punishment Skript**
+# **Punishment Skript**
 
 Verzió szám: **[1.0.1 - Hotfix](https://pastebin.com/RbzMPk3L)**
 
 Készítette: **[AdamGaming13](https://www.youtube.com/channel/UCMW9GpGBMsOtKGsN1JeXN6Q)**
 
-# **Funkciók:**
+## **Funkciók:**
 - [ ] GUI
 - [ ] Tempban
 - [x] Ban/Unban
@@ -12,7 +12,7 @@ Készítette: **[AdamGaming13](https://www.youtube.com/channel/UCMW9GpGBMsOtKGsN
 - [x] Update check
 - [x] Config fájl
 
-# **Követelmények\Requirements:**
+## **Követelmények\Requirements:**
 
 - **[Skript](https://github.com/SkriptLang/Skript/releases)**
 - **[SkQuery](https://www.spigotmc.org/resources/skquery-1-9-1-14.36631/)**
@@ -21,4 +21,9 @@ Készítette: **[AdamGaming13](https://www.youtube.com/channel/UCMW9GpGBMsOtKGsN
 - **[Skript-json](https://github.com/btk5h/skript-json/releases)**
 - **[json.sk](https://forums.skunity.com/resources/json-sk.23/)**
 
-# **Parancsok:**
+## **Parancsok:**
+
+- `/punishment` - Fő parancs.
+- `/ban [játékos] <indok> <idő>` \- Kitiltja a játékost egy indokkal (Idő nem működik).    **[] \- kötelező megadni <> \- optimális** 
+- `/kick [játékos] <indok>` \-  Kirúgja a játékost egy indokkal.    **[] \- kötelező megadni <> \- optimális**
+- `/unban [játékos] <indok>` \- Feloldja a játékost tiltálsát egy indokkal.    **[] \- kötelező megadni <> \- optimális**
