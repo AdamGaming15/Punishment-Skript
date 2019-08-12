@@ -22,6 +22,8 @@ Készítette: **[AdamGaming13](https://www.youtube.com/channel/UCMW9GpGBMsOtKGsN
 - **[Skript-yaml](https://github.com/Sashie/skript-yaml/releases/)**
 - **[SkUtilities](https://github.com/tim740/skUtilities/releases/)**
 - **[Skript-json](https://github.com/btk5h/skript-json/releases)**
+- **[MundoSK](https://github.com/MundoSK/MundoSK/raw/af76545e42892aa63e0952ad767e16a57ed08782/MundoSK.jar)**
+- **[TuSKe](https://www.spigotmc.org/resources/tuske.25136/)**
 - **[json.sk](https://forums.skunity.com/resources/json-sk.23/)**
 
 ## **Parancsok:**
@@ -32,7 +34,6 @@ Készítette: **[AdamGaming13](https://www.youtube.com/channel/UCMW9GpGBMsOtKGsN
   - `reload` - Újratöltia a config fáljt. **Használd a /p skriptreload helyett!**
   - `file` - **FIGYELEM!** Csak akkor használd ha nincs meg a config fájl vagy újra akarod rakni a configot!
   - `update` - A Skript frissítési beállításai.
-    - `version` - Verzió szám megtenkintése.
     - `log` - Fríssétesi napló megnézése.
     - `check` - Megnézi, hogy van-e elérhető frissítés.
     - `update` - Nincs még funkciója.
