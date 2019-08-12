@@ -7,6 +7,9 @@ Készítette: **[AdamGaming13](https://www.youtube.com/channel/UCMW9GpGBMsOtKGsN
 ## **Funkciók:**
 - [ ] GUI
 - [ ] Tempban
+- [ ] Mute
+- [ ] Auto update
+- [ ] Tab auto complete
 - [x] Ban/Unban
 - [x] Kick
 - [x] Update check
@@ -24,6 +27,15 @@ Készítette: **[AdamGaming13](https://www.youtube.com/channel/UCMW9GpGBMsOtKGsN
 ## **Parancsok:**
 
 - `/punishment` - Fő parancs.
+  - `help` - A skript használatának utasításai.
+  - `skriptreload` - **FIGYELEM!** Csak akkor használd ha teljes skriptet újra akarod índítani!
+  - `reload` - Újratöltia a config fáljt. **Használd a /p skriptreload helyett!**
+  - `file` - **FIGYELEM!** Csak akkor használd ha nincs meg a config fájl vagy újra akarod rakni a configot!
+  - `update` - A Skript frissítési beállításai.
+    - `version` - Verzió szám megtenkintése.
+    - `log` - Fríssétesi napló megnézése.
+    - `check` - Megnézi, hogy van-e elérhető frissítés.
+    - `update` - Nincs még funkciója.
 - `/ban [játékos] <indok> <idő>` \- Kitiltja a játékost egy indokkal (Idő nem működik).    **[] \- kötelező megadni <> \- optimális** 
 - `/kick [játékos] <indok>` \-  Kirúgja a játékost egy indokkal.    **[] \- kötelező megadni <> \- optimális**
 - `/unban [játékos] <indok>` \- Feloldja a játékost tiltálsát egy indokkal.    **[] \- kötelező megadni <> \- optimális**
