@@ -1,10 +1,18 @@
-# BanGUI-Skript
+## **Punishment Skript**
 
 Verzió szám: **[1.0.1 - Hotfix](https://pastebin.com/RbzMPk3L)**
 
 Készítette: **[AdamGaming13](https://www.youtube.com/channel/UCMW9GpGBMsOtKGsN1JeXN6Q)**
 
-**Követelmények\Requirements:**
+# **Funkciók:**
+- [ ] GUI
+- [ ] Tempban
+- [x] Ban/Unban
+- [x] Kick
+- [x] Update check
+- [x] Config fájl
+
+# **Követelmények\Requirements:**
 
 - **[Skript](https://github.com/SkriptLang/Skript/releases)**
 - **[SkQuery](https://www.spigotmc.org/resources/skquery-1-9-1-14.36631/)**
@@ -13,4 +21,4 @@ Készítette: **[AdamGaming13](https://www.youtube.com/channel/UCMW9GpGBMsOtKGsN
 - **[Skript-json](https://github.com/btk5h/skript-json/releases)**
 - **[json.sk](https://forums.skunity.com/resources/json-sk.23/)**
 
-**Parancsok:**
+# **Parancsok:**
