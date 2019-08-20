@@ -1,0 +1,316 @@
+
+
+
+
+
+#*************************#
+#                         #
+#         Options         #
+#                         #
+#*************************#
+
+options:
+	version: 1.0.1 - More options
+	configpath: plugins/Punishment/config.yml
+	listpath: plugins/Punishment/lista.yml
+	skript: Punishment
+	Tabcomplete: Punishment-Tab complete
+	updatelog: https://github.com/InternalGaming02/BanGUI-Skript/releases
+	prefix: &7[&cPunishment&7]
+	url: https://pastebin.com/raw/RbzMPk3L
+
+#*************************#
+#                         #
+#      Update manager     #
+#                         #
+#*************************#
+
+on join:
+	set {_version} to line 1 from url "{@url}"
+	if "%{_version}%" isn't "{@version}":
+		broadcast "Nem a legfrisseb verzió!"
+	else:
+		broadcast "A legfrissebb verzió!"
+#*************************#
+#                         #
+#      File manager       #
+#                         #
+#*************************#
+
+function createYMLFile(directory: text, yaml: text, usageSeperator: string = "||", listSeperator: string = ";", unload: boolean = true):
+  load yaml {_directory} as {_directory}
+  loop split {_yaml} at {_usageSeperator}:
+    if loop-value parsed as "val[ue]: %text%:%text%" is set:
+      set {_values::*} to loop-value parsed as "val[ue]:[ ]%text%:%text%"
+      set skript-yaml value {_values::1} from {_directory} to {_values::2}
+    else if loop-value parsed as "l[i]st:[ ]%text%:%text%" is set:
+      set {_values::*} to loop-value parsed as "l[i]st:[ ]%text%:%text%"
+      set skript-yaml list {_values::1} from {_directory} to split {_values::2} at {_listSeperator}
+  save yaml {_directory}
+  if {_unload} is true:
+    unload yaml {_directory}
+
+#*************************#
+#                         #
+#        Functions        #
+#                         #
+#*************************#
+
+function help(receiver : player):
+
+	send "&7---------------------&bSegítség&7---------------------" to {_receiver}
+	json("%{_receiver}%", "&b/punishment help||ttp:&bKatt a parancs futtatásáért||sgt:/p help|| - &7 Ennek a menünek a megnyítása")
+	json("%{_receiver}%", "&b/punishment reload||ttp:&bKatt a parancs futtatásáért||sgt:/p reload|| - &7 Config újratötlése")
+	json("%{_receiver}%", "&b/punishment skriptreload||ttp:&bKatt a parancs futtatásáért||sgt:/p skriptreload|| - &7 Skript újratötlése")
+	json("%{_receiver}%", "&b/punishment file||ttp:&bKatt a parancs futtatásáért||sgt:/p file|| - &c Fájlok újragenerálása")
+	json("%{_receiver}%", "&b/punishment update||ttp:&bKatt a parancs futtatásáért||sgt:/p update|| - &7 Frissítések")
+	json("%{_receiver}%", "&b/punishment github|ttp:&bKatt a link megnyításáért||url:https://github.com/InternalGaming02/BanGUI-Skript|| - &7 Github")
+	json("%{_receiver}%", "&b/ban [játékosnév] [idő] [ok]||ttp:&bKatt a parancs futtatásáért||sgt:/ban|| - &7Játékos kitiltása")
+	json("%{_receiver}%", "&b/unban [játékosnév] [ok]||ttp:&bKatt a parancs futtatásáért||sgt:/unban|| - &7Játékos kitiltásának feloldása")
+	json("%{_receiver}%", "&b/kick [játékosnév] [ok]||ttp:&bKatt a parancs futtatásáért||sgt:/kick|| - &7Játékos kirúgása")
+	send "&7-------------------------------------------------" to {_receiver}
+	# message "&7---------------------&bSegítség&7---------------------"
+	# message "&b/punishment help - &7 Ennek a menünek a megnyítása"
+	# message "&b/punishment reload - &7 Config újratötlése"
+	# message "&b/punishment skriptreload - &7 Skript újratötlése"
+	# message "&b/punishment file - &c Fájlok újragenerálása"
+	# message "&b/punishment update - &7 Frissítések"
+	# message "&b/ban [játékosnév] [idő] [ok] - &7Játékos kitiltása"
+	# message "&b/unban [játékosnév] [ok] - &7Játékos kitiltásának feloldása"
+	# message "&b/kick [játékosnév] [ok] - &7Játékos kirúgása"
+	# message "&7-------------------------------------------------"
+
+function updatehelp(receiver : player):
+
+	set {_version} to line 1 from url "{@url}"
+	send "&7---------------------&bSegítség&7---------------------" to {_receiver}
+	if "%{_version}%" is "{@version}":
+		json("%{_receiver}%", "&b/punishment update check||ttp:&bA legfrissebb verzió van a rendszeren|| - &7 Verziószám ellenőrzése")
+	else:
+		json("%{_receiver}%", "&b/punishment update check||ttp:&bÚj verzió elérhető: &c%{_version}%|| - &7 Verziószám ellenőrzése")
+	json("%{_receiver}%", "&b/punishment update log||ttp:&bKatt a parancs futtatásáért||sgt:/p update log|| - &7 Github frissítési napló")
+	json("%{_receiver}%", "&b/punishment update update||ttp:&bKatt a parancs futtatásáért||sgt:/p update update|| - &7 Skript frissítése")
+	send "&7-------------------------------------------------" to {_receiver}
+
+function read():
+	load yaml "{@configpath}" as "{@configpath}"
+	set {prefix} to yaml value "prefix" from "{@configpath}"
+	set {permission_message} to yaml value "permmission message" from "{@configpath}"
+	set {main_command_permission} to yaml value "command permission" from "{@configpath}"
+	set {ban_permission} to yaml value "ban permission" from "{@configpath}"
+	set {unban_permission} to yaml value "unban permission" from "{@configpath}"
+	set {kick_permission} to yaml value "kick permission" from "{@configpath}"
+	set {main_command_usage} to yaml value "unknownargument" from "{@configpath}"
+	set {bam_usage} to yaml value "ban usage" from "{@configpath}"
+	set {unban_usage} to yaml value "unban usage" from "{@configpath}"
+	set {kick_usage} to yaml value "kick usage" from "{@configpath}"
+	set {forver_ban_message} to yaml value "forever ban message" from "{@configpath}"
+	set {ban_message} to yaml value "ban message" from "{@configpath}"
+	set {unban_message} to yaml value "unban message" from "{@configpath}"
+	set {kick_message} to yaml value "kick message" from "{@configpath}"
+
+
+#*************************#
+#                         #
+#         Loader          #
+#                         #
+#*************************#
+
+
+on skript load:
+	set {_version} to line 1 from url "{@url}"
+	send "---------------------------------------------" to console
+	send "{@prefix} &aPunishment skript - &aBetöltés..." to console
+	wait 1 tick
+	if yaml file "{configpath}" exists:
+		send "{@prefix} &aPunishment skript - &aConfig betöltése..." to console
+		wait 1 tick
+		load yaml "{@configpath}" as "{@configpath}"
+		read()
+		send "{@prefix} &aPunishment skript - &aConfig betöltése sikeres!" to console
+		if yml file "{@listpath}" exists:
+			send "{@prefix} &aPunishment skript - &aBannoltak listájának betöltése..." to console
+			wait 1 tick
+			load yaml "{@listpath}" as "list"
+			#set {player} to yaml value "játékosnév" from "list"
+			send "{@prefix} &aPunishment skript - &aBannoltak listájának betöltése sikeres" to console
+		else:
+			createYMLFile("{@listpath}", "list: listateszt:test")
+			load yaml "{@listpath}" as "list"
+			#set {player} to yaml value "játékosnév" from "list"
+	else:
+		createYMLFile("{@configpath}", "value: command permission:punishment.use||value: ban permission:punishment.ban||value: unban permission:punishment.unban||value: kick permission:punishment.kick||value: permission message:&cNincs jogod ehhez!||value: prefix:&7[&cPunishment&7]||value: unknownargument:&cHasználat /punishmnet help||value: forver ban message:punishment.ban||value: ban message:punishment.ban||value: unban message:punishment.ban||value: kick message: ban")
+		load yaml "{@configpath}" as "{@configpath}"
+		read()
+	if "%{_version}%" is "{@version}":
+		send "%{prefix}% &aNincs elérhető frissítés :)" to console
+	else:
+		send "%{player}% &bFrissítés elérhető!" to console
+		send "%{player}% &bVerzió szám: &6%{_version}%!" to console
+		send "%{player}% &bInnen tudod letöltni: {@updatelog}!" to console
+	send "---------------------------------------------" to console
+
+on skript unload:
+	send "---------------------------------------------" to console
+	send "{@prefix} &aPunishment skript - &aLellítása..." to console
+	send "---------------------------------------------" to console
+
+
+#*************************#
+#                         #
+#        Commands         #
+#                         #
+#*************************#
+
+
+command /punishment [<text>] [<text>]:
+	description: "A főparancs"
+	permission: {main_command_permission}
+	permission message: {prefix}{permission_message}
+	executable by: console and players
+	aliases: /p, /punish
+	trigger:
+		
+		# Help
+		
+		if arg-1 is "help":
+			help(player)
+		
+		# Skript reload
+		
+		else if arg-1 is "skriptreload":
+			set {_reloadtime1} to now
+			execute console command "/sk reload {@skript}"
+			execute console command "/sk reload {@Tabcomplete}"
+			set {_reloadtime} to difference between {_reloadtime1} and now
+			message "%{prefix}% &aA skript újratöltése &b%{_reloadtime}% &aidő alatt!"
+		
+		# Reload
+		
+		else if arg-1 is "reload":
+			set {_reloadtime1} to now
+			wait 1 tick
+
+			read()
+
+			set {_reloadtime} to difference between {_reloadtime1} and now
+			message "%{prefix}% &aA fájlok újratöltése &b%{_reloadtime}% &aidő alatt!"
+
+		# File
+		
+		else if arg-1 is "file":
+			set {_reloadtime1} to now
+			createYMLFile("{@configpath}", "value: permission:punishment.use||value: permission message:&cNincs jogod ehhez!||value: prefix:&7[&cPunishment&7]||value: unknownargument:&cHasználat: /punishment help")
+			load yaml "{@configpath}" as "{@configpath}"
+
+			read()
+
+			set {_reloadtime} to difference between {_reloadtime1} and now
+			message "%{prefix}% &aA fájlok újragenerálása &b%{_reloadtime}% &aidő alatt!"
+
+		# Update
+		
+		else if arg-1 is "update":
+
+			# version
+
+			if arg-2 is "version":
+				message "%{prefix}% &aJelenlegi verzió: &6{@version}"
+
+			# log
+
+			else if arg-2 is "log" or "updatelog":
+				message "%{prefix}% &a{@updatelog}"
+
+			# check
+
+			else if arg-2 is "check" or "updatecheck":
+				set {_version} to line 1 from url "{@url}"
+				if "%{_version}%" isn't "{@version}":
+					message "%{prefix}% &cNem a legfrisseb verzió!"
+					message "%{prefix}% &6Innen tudod letölteni a legfríssebb verziót: &ahttps://github.com/InternalGaming02/BanGUI-Skript/releases"
+				else:
+					message "%{prefix}% &a A legfrissebb verzió!"
+			
+			# update
+			
+			else if arg-2 is "update":
+				message "%{prefix}% &cMég nem müködik!"
+			else if arg-2 isn't "version" or "log" or "updatelog" or "check" or "updatecheck" or "update":
+				updatehelp(player)
+			# Github
+
+			else if arg-2 is "github":
+				message "%{prefix}% &6https://github.com/InternalGaming02/BanGUI-Skript/releases"
+				
+
+		else if arg-1 isn't "help" or "reload" or "skriptreload" or "file" or "update":
+			help(player)
+
+
+
+#*************************#
+#                         #
+#      	    Ban           #
+#                         #
+#*************************#
+
+command /ban [<offline player>] [<text>] [<timespan>]:
+	permission: {ban_permission}
+	permission message: {prefix} {permission_message}
+	executable by: console and players
+	trigger:
+		if arg-1 is set:
+			#opengui
+			if arg-2 is set:
+				ban arg-1 due to arg-2
+				if arg-3 is set:
+					send "a"
+			else:
+				ban arg-1 due to {forver_ban_message}
+				
+		else:
+			message "Használat /ban [játékosnév] [ok] [idő]"
+
+
+#*************************#
+#                         #
+#      	   Unban          #
+#                         #
+#*************************#
+
+
+command /unban [<offline player>] [<text>]:
+	permission: {unban_permission}
+	permission message: {prefix} {permission_message}
+	executable by: console and players
+	trigger:
+		if arg-1 is set:
+			#opengui
+			if arg-2 is set:
+				unban arg-1
+			else:
+				unban arg-1
+		else:
+			message "Használat /unban [játékosnév] [ok]"
+
+
+#*************************#
+#                         #
+#      	   Kick           #
+#                         #
+#*************************#
+
+command /kick [<offline player>] [<text>]:
+	permission: {kick_permission}
+	permission message: {prefix} {permission_message}
+	executable by: console and players
+	trigger:
+		if arg-1 is set:
+			#opengui
+			if arg-2 is set:
+				kick arg-1 due to arg-2
+			else:
+				kick arg-1 due to {kick_message}
+		else:
+			message "%{prefix}% %{kick_usage}%"
