@@ -9,7 +9,7 @@ Készítette: **[AdamGaming13](https://www.youtube.com/channel/UCMW9GpGBMsOtKGsN
 - [ ] Tempban
 - [ ] Mute
 - [ ] Auto update
-- [ ] Tab auto complete
+- [ ] Tab auto complete - Félig kész
 - [x] Ban/Unban
 - [x] Kick
 - [x] Update check
