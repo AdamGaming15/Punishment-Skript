@@ -1,16 +1,9 @@
----
-name: Hiba visszajelzése
-about: Miden adat megadása kötelező!
-title: ''
-labels: ''
-assignees: ''
-
----
-
 **Írd le a hibát**
+
 Pontosan írd le, vagy törölve lesz (ezt a sort törölheted)
 
 **A hiba megismétlése**
+
 Valahogy, így írd le:
 1. Go to '...'
 2. Click on '....'
