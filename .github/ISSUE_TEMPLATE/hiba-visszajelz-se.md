@@ -1,10 +1,9 @@
 **Írd le a hibát**
-
 Pontosan írd le, vagy törölve lesz (ezt a sort törölheted)
 
 **A hiba megismétlése**
-
 Valahogy, így írd le:
+
 1. Go to '...'
 2. Click on '....'
 3. Scroll down to '....'
