@@ -10,11 +10,11 @@
 #*************************#
 
 options:
-	version: 1.0.1 - More options
+	version: 1.0.2 - Mute hozzáadva
 	configpath: plugins/Punishment/config.yml
 	listpath: plugins/Punishment/lista.yml
-	skript: Punishment
-	Tabcomplete: Punishment-Tab complete
+	skript: Punishment-Skript\Punishment
+	Tabcomplete: Punishment-Skript\Punishment-Tab complete
 	updatelog: https://github.com/InternalGaming02/BanGUI-Skript/releases
 	prefix: &7[&cPunishment&7]
 	url: https://pastebin.com/raw/RbzMPk3L
@@ -28,9 +28,14 @@ options:
 on join:
 	set {_version} to line 1 from url "{@url}"
 	if "%{_version}%" isn't "{@version}":
-		broadcast "Nem a legfrisseb verzió!"
-	else:
-		broadcast "A legfrissebb verzió!"
+		if player has permission "punishment.update.notify":
+			message "&7---------------------------------------"
+			message "&bÚj verzió érhető el: &6%{_version}%"
+			message "&bAz updatokért nézd meg a Github oldalt!"
+			message "&6{@updatelog}"
+			message "&7---------------------------------------"
+			
+			
 #*************************#
 #                         #
 #      File manager       #
@@ -56,7 +61,7 @@ function createYMLFile(directory: text, yaml: text, usageSeperator: string = "||
 #                         #
 #*************************#
 
-function help(receiver : player):
+function helpa(receiver : player):
 
 	send "&7---------------------&bSegítség&7---------------------" to {_receiver}
 	json("%{_receiver}%", "&b/punishment help||ttp:&bKatt a parancs futtatásáért||sgt:/p help|| - &7 Ennek a menünek a megnyítása")
@@ -64,21 +69,14 @@ function help(receiver : player):
 	json("%{_receiver}%", "&b/punishment skriptreload||ttp:&bKatt a parancs futtatásáért||sgt:/p skriptreload|| - &7 Skript újratötlése")
 	json("%{_receiver}%", "&b/punishment file||ttp:&bKatt a parancs futtatásáért||sgt:/p file|| - &c Fájlok újragenerálása")
 	json("%{_receiver}%", "&b/punishment update||ttp:&bKatt a parancs futtatásáért||sgt:/p update|| - &7 Frissítések")
-	json("%{_receiver}%", "&b/punishment github|ttp:&bKatt a link megnyításáért||url:https://github.com/InternalGaming02/BanGUI-Skript|| - &7 Github")
+	json("%{_receiver}%", "&b/punishment github||ttp:&bKatt a link megnyításáért||url:https://github.com/InternalGaming02/BanGUI-Skript|| - &7 Github")
 	json("%{_receiver}%", "&b/ban [játékosnév] [idő] [ok]||ttp:&bKatt a parancs futtatásáért||sgt:/ban|| - &7Játékos kitiltása")
 	json("%{_receiver}%", "&b/unban [játékosnév] [ok]||ttp:&bKatt a parancs futtatásáért||sgt:/unban|| - &7Játékos kitiltásának feloldása")
 	json("%{_receiver}%", "&b/kick [játékosnév] [ok]||ttp:&bKatt a parancs futtatásáért||sgt:/kick|| - &7Játékos kirúgása")
+	json("%{_receiver}%", "&b/mute [játékosnév] [idő] [ok]||ttp:&bKatt a parancs futtatásáért||sgt:/mute|| - &7Játékos némítása")
+	json("%{_receiver}%", "&b/report [játékosnév]||ttp:&bKatt a parancs futtatásáért||sgt:/report|| - &7Játékos jelentése")
+	json("%{_receiver}%", "&b/reportdc [játékosnév]||ttp:&bKatt a parancs futtatásáért||sgt:/reportdc|| - &7Játékos jelentése discordon")
 	send "&7-------------------------------------------------" to {_receiver}
-	# message "&7---------------------&bSegítség&7---------------------"
-	# message "&b/punishment help - &7 Ennek a menünek a megnyítása"
-	# message "&b/punishment reload - &7 Config újratötlése"
-	# message "&b/punishment skriptreload - &7 Skript újratötlése"
-	# message "&b/punishment file - &c Fájlok újragenerálása"
-	# message "&b/punishment update - &7 Frissítések"
-	# message "&b/ban [játékosnév] [idő] [ok] - &7Játékos kitiltása"
-	# message "&b/unban [játékosnév] [ok] - &7Játékos kitiltásának feloldása"
-	# message "&b/kick [játékosnév] [ok] - &7Játékos kirúgása"
-	# message "&7-------------------------------------------------"
 
 function updatehelp(receiver : player):
 
@@ -118,6 +116,7 @@ function read():
 
 
 on skript load:
+	login to "NjE1NTY4MTU0MjQ0MDIyMjk1.XX3kIQ.-2A8PPcqJAEYgXMJ2nCiNzJDYsE" with the name "Helper-bot_BETA"
 	set {_version} to line 1 from url "{@url}"
 	send "---------------------------------------------" to console
 	send "{@prefix} &aPunishment skript - &aBetöltés..." to console
@@ -145,14 +144,14 @@ on skript load:
 	if "%{_version}%" is "{@version}":
 		send "%{prefix}% &aNincs elérhető frissítés :)" to console
 	else:
-		send "%{player}% &bFrissítés elérhető!" to console
-		send "%{player}% &bVerzió szám: &6%{_version}%!" to console
-		send "%{player}% &bInnen tudod letöltni: {@updatelog}!" to console
+		send "{@prefix} &bFrissítés elérhető!" to console
+		send "{@prefix} &bVerzió szám: &6%{_version}%!" to console
+		send "{@prefix} &bInnen tudod letöltni: {@updatelog}!" to console
 	send "---------------------------------------------" to console
 
 on skript unload:
 	send "---------------------------------------------" to console
-	send "{@prefix} &aPunishment skript - &aLellítása..." to console
+	send "{@prefix} &aPunishment skript - &aLeállítása..." to console
 	send "---------------------------------------------" to console
 
 
@@ -174,7 +173,23 @@ command /punishment [<text>] [<text>]:
 		# Help
 		
 		if arg-1 is "help":
-			help(player)
+			if executor is console:
+				send "&7---------------------&bSegítség&7---------------------" to console
+				send "&b/punishment help - &7 Ennek a menünek a megnyítása" to console
+				send "&b/punishment reload - &7 Config újratötlése" to console
+				send "&b/punishment skriptreload - &7 Skript újratötlése" to console
+				send "&b/punishment file - &c Fájlok újragenerálása" to console
+				send "&b/punishment update - &7 Frissítések" to console
+				send "&b/punishment github - &7 Github" to console
+				send "&b/ban [játékosnév] [idő] [ok] - &7Játékos kitiltása" to console
+				send "&b/unban [játékosnév] [ok] - &7Játékos kitiltásának feloldása" to console
+				send "&b/kick [játékosnév] [ok] - &7Játékos kirúgása" to console
+				send "&b/mute [játékosnév] [idő] [ok] &r- &7Játékos némítása" to console
+				send "&b/reprot [játékosnév] &r- &7Játékos jelentése" to console
+				send "/reportdc [játékosnév] &r- &7Játékos jelentése discrodra" to console
+				send "&7-------------------------------------------------" to console
+			else:
+				helpa(player)
 		
 		# Skript reload
 		
@@ -236,8 +251,16 @@ command /punishment [<text>] [<text>]:
 			
 			else if arg-2 is "update":
 				message "%{prefix}% &cMég nem müködik!"
-			else if arg-2 isn't "version" or "log" or "updatelog" or "check" or "updatecheck" or "update":
-				updatehelp(player)
+			else if arg-2 isn't "version" or "log" or "updatelog" or "check" or "updatecheck" or "update" or "github":
+				if executor is console:
+					send "&7---------------------&bSegítség&7---------------------" to console
+					send "&b/punishment update check &r- &7 Verziószám ellenőrzése" to console
+					send "&b/punishment update log &r- &7 Github frissítési napló" to console
+					send "&b/punishment update update &r- &7 Skript frissítése" to console
+					send "&7-------------------------------------------------" to console
+				else:
+					updatehelp(player)
+				
 			# Github
 
 			else if arg-2 is "github":
@@ -245,7 +268,23 @@ command /punishment [<text>] [<text>]:
 				
 
 		else if arg-1 isn't "help" or "reload" or "skriptreload" or "file" or "update":
-			help(player)
+			if executor is console:
+				send "&7---------------------&bSegítség&7---------------------" to console
+				send "&b/punishment help &r- &7 Ennek a menünek a megnyítása" to console
+				send "&b/punishment reload &r- &7 Config újratötlése" to console
+				send "&b/punishment skriptreload &r- &7 Skript újratötlése" to console
+				send "&b/punishment file &r- &c Fájlok újragenerálása" to console
+				send "&b/punishment update &r- &7 Frissítések" to console
+				send "&b/punishment github &r- &7 Github" to console
+				send "&b/ban [játékosnév] [idő] [ok] &r- &7Játékos kitiltása" to console
+				send "&b/unban [játékosnév] [ok] &r- &7Játékos kitiltásának feloldása" to console
+				send "&b/kick [játékosnév] [ok] &r- &7Játékos kirúgása" to console
+				send "&b/mute [játékosnév] [idő] [ok] &r- &7Játékos némítása" to console
+				send "&b/reprot [játékosnév] &r- &7Játékos jelentése" to console
+				send "&b/reportdc [játékosnév] &r- &7Játékos jelentése discrodra" to console
+				send "&7-------------------------------------------------" to console
+			else:
+				helpa(player)
 
 
 
@@ -314,3 +353,68 @@ command /kick [<offline player>] [<text>]:
 				kick arg-1 due to {kick_message}
 		else:
 			message "%{prefix}% %{kick_usage}%"
+			
+#*************************#
+#                         #
+#      	  Report          #
+#                         #
+#*************************#
+
+on inventory click:
+	if inventory name of player's current inventory is "&6%{reportdc.%player%}% &8jelentése":
+	if clicked slot is 10:
+		cancel event
+		create embed:	
+			set the title of embed to title with text "Title"
+			set the description of embed to "Description%nl%The title leads to the URL, if given"
+			set the author info of the embed to author named "Author name (Can point to URL)" with no url and icon "https://cdn.discordapp.com/attachments/236641445363056651/405167105760296971/Logov2.jpg"
+			set the colour of the embed to Cyan
+			add split field named "Field Name" with value "Colour sets %nl%< that" to embed
+			add split field named "Field Name" with value "Color is a java Color%nl%Not a string" to embed
+			add split field named "Field Name" with value "Field value" to embed
+			set the timestamp of embed to now
+		send last created embed to channel with id "481366165369651211" with "Helper-bot_BETA"
+		close player's inventory
+	else:
+		cancel event
+
+
+command /reportdc [<offline player>]:
+	permission: nincs
+	permission message: {prefix} {permission_message}
+	executable by: console and players
+	trigger:
+		if arg-1 is set:
+			if arg-1 is online:
+				set {reportdc.%player%} to arg-1
+				open chest inventory with 4 rows named "&6%arg-1% &8jelentése" to player
+				set {_slotglass_up} to 0
+				set {_slotglass_down} to 27
+				loop 9 times:
+					set slot {_slotglass_up} of player's current inventory to gray stained glass pane named "&a"
+					add 1 to {_slotglass_up}
+				loop 9 times:
+					set slot {_slotglass_down} of player's current inventory to gray stained glass pane named "&a"
+					add 1 to {_slotglass_down}
+				set slot 9 of player's current inventory to gray stained glass pane named "&a"
+				
+				set slot 10 of player's current inventory to iron sword named "&4&lKillAura" with lore "&7Játékos jelentésért kattincs ide!"
+				
+				set slot 17 of player's current inventory to gray stained glass pane named "&a"
+				set slot 18 of player's current inventory to gray stained glass pane named "&a"
+				set slot 26 of player's current inventory to gray stained glass pane named "&a"
+					
+			else:
+				message "%{prefix}% &6%arg-1% &cnem online!"
+		else:
+			message  "%{prefix}% {használat}"
+			
+command /report [<offline player>]:
+	permission: nincs
+	permission message: {prefix} {permission_message}
+	executable by: console and players
+	trigger:
+		if arg-1 is set:
+			#gui
+		else:
+			message  "%{prefix}% {használat}"
