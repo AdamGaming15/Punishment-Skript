@@ -64,7 +64,7 @@ expression scripts:
         return {_scripts::*}
 
 on TabCompleteEvent:
-    if tabbed command is "/punish":
+    if tabbed command is "/punish" or "/p" or "/punishment":
         if tab arg 2 isn't set:
             set completions to "help", "reload", "skriptreload", "file", "github" and "update" at tab arg 1
         else:
@@ -300,7 +300,7 @@ command /punishment [<text>] [<text>]:
 					message "%{prefix}% &cNem a legfrisseb verzió!"
 					message "%{prefix}% &6Innen tudod letölteni a legfríssebb verziót: &ahttps://github.com/InternalGaming02/BanGUI-Skript/releases"
 				else:
-					message "%{prefix}% &a A legfrissebb verzió!"
+					message "%{prefix}% &aA legfrissebb verzió van a rendszeren!"
 			
 			# update
 			
