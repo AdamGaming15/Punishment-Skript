@@ -9,7 +9,8 @@ Készítette: **[AdamGaming13](https://www.youtube.com/channel/UCMW9GpGBMsOtKGsN
 - [ ] Tempban
 - [ ] Mute
 - [ ] Auto update
-- [ ] Tab auto complete - Félig kész
+- [ ] Ban Animation
+- [x] Tab auto complete
 - [x] Ban/Unban
 - [x] Kick
 - [x] Update check
@@ -24,6 +25,7 @@ Készítette: **[AdamGaming13](https://www.youtube.com/channel/UCMW9GpGBMsOtKGsN
 - **[Skript-json](https://github.com/btk5h/skript-json/releases)**
 - **[MundoSK](https://github.com/MundoSK/MundoSK/raw/af76545e42892aa63e0952ad767e16a57ed08782/MundoSK.jar)**
 - **[TuSKe](https://www.spigotmc.org/resources/tuske.25136/)**
+- **[skript-mirror](https://github.com/btk5h/skript-mirror/releases)**
 - **[json.sk](https://forums.skunity.com/resources/json-sk.23/)**
 
 ## **Parancsok:**
