@@ -26,6 +26,7 @@ Készítette: **[AdamGaming13](https://www.youtube.com/channel/UCMW9GpGBMsOtKGsN
 - **[MundoSK](https://github.com/MundoSK/MundoSK/raw/af76545e42892aa63e0952ad767e16a57ed08782/MundoSK.jar)**
 - **[TuSKe](https://www.spigotmc.org/resources/tuske.25136/)**
 - **[skript-mirror](https://github.com/btk5h/skript-mirror/releases)**
+- **[Skellet](https://github.com/TheLimeGlass/Skellett/releases)**
 - **[json.sk](https://forums.skunity.com/resources/json-sk.23/)**
 
 ## **Parancsok:**
@@ -42,3 +43,5 @@ Készítette: **[AdamGaming13](https://www.youtube.com/channel/UCMW9GpGBMsOtKGsN
 - `/ban [játékos] <indok> <idő>` \- Kitiltja a játékost egy indokkal (Idő nem működik).    **[] \- kötelező megadni <> \- optimális** 
 - `/kick [játékos] <indok>` \-  Kirúgja a játékost egy indokkal.    **[] \- kötelező megadni <> \- optimális**
 - `/unban [játékos] <indok>` \- Feloldja a játékost tiltálsát egy indokkal.    **[] \- kötelező megadni <> \- optimális**
+- `/reportdc [játékos]` \- Jelent egy játékost discordon a megadott szobában **[] \- kötelező megadni**
+- `/report [játékos]` \- Jelent egy játékost discordon a megadott szobában **[] \- kötelező megadni**
