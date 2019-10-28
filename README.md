@@ -15,6 +15,8 @@ Készítette: **[AdamGaming13](https://www.youtube.com/channel/UCMW9GpGBMsOtKGsN
 - [x] Kick
 - [x] Update check
 - [x] Config fájl
+- [x] Discord (Report rendszer)
+- [x] Report rendszer
 
 ## **Követelmények\Requirements:**
 
@@ -26,6 +28,7 @@ Készítette: **[AdamGaming13](https://www.youtube.com/channel/UCMW9GpGBMsOtKGsN
 - **[MundoSK](https://github.com/MundoSK/MundoSK/raw/af76545e42892aa63e0952ad767e16a57ed08782/MundoSK.jar)**
 - **[skript-mirror](https://github.com/btk5h/skript-mirror/releases)**
 - **[json.sk](https://forums.skunity.com/resources/json-sk.23/)**
+- **[Vixio](https://github.com/iBlitzkriegi/Vixio/releases)**
 
 ## **Parancsok:**
 
