@@ -5,14 +5,14 @@
 #*************************#
 
 options:
-	version: 1.0.2 - Tab complete befejezve
+	version: 1.0.3
 	configpath: plugins/Punishment/config.yml
 	listpath: plugins/Punishment/lista.yml
 	skript: Punishment-Skript\Punishment
-	Tabcomplete: Punishment-Skript\Punishment-Tab complete
 	updatelog: https://github.com/InternalGaming02/BanGUI-Skript/releases
 	prefix: &7[&cPunishment&7]
 	url: https://pastebin.com/raw/RbzMPk3L
+	mainglass: white stained glass pane
 
 #*************************#
 #                         #
@@ -100,7 +100,7 @@ on join:
 function createYMLFile(directory: text, yaml: text, usageSeperator: string = "||", listSeperator: string = ";", unload: boolean = true):
   load yaml {_directory} as {_directory}
   loop split {_yaml} at {_usageSeperator}:
-    if loop-value parsed as "val[ue]: %text%:%text%" is set:
+    if loop-value parsed as "val[ue]: %text%:%text%" is set:		
       set {_values::*} to loop-value parsed as "val[ue]:[ ]%text%:%text%"
       set skript-yaml value {_values::1} from {_directory} to {_values::2}
     else if loop-value parsed as "l[i]st:[ ]%text%:%text%" is set:
@@ -147,6 +147,7 @@ function updatehelp(receiver : player):
 
 function read():
 	load yaml "{@configpath}" as "{@configpath}"
+	load yaml "{@listpath}" as "{@listpath}"
 	set {prefix} to yaml value "prefix" from "{@configpath}"
 	set {permission_message} to yaml value "permmission message" from "{@configpath}"
 	set {main_command_permission} to yaml value "command permission" from "{@configpath}"
@@ -161,6 +162,9 @@ function read():
 	set {ban_message} to yaml value "ban message" from "{@configpath}"
 	set {unban_message} to yaml value "unban message" from "{@configpath}"
 	set {kick_message} to yaml value "kick message" from "{@configpath}"
+	set {discordbot_name} to yaml value "discord bot name" from "{@configpath}"
+	set {discordbot_id} to yaml value "discord bot id" from "{@configpath}"
+	set {staff::*} to yaml list "Staffok" from "{@listpath}"
 
 
 #*************************#
@@ -171,29 +175,30 @@ function read():
 
 
 on skript load:
-	login to "NjE1NTY4MTU0MjQ0MDIyMjk1.XX3kIQ.-2A8PPcqJAEYgXMJ2nCiNzJDYsE" with the name "Helper-bot_BETA"
+	login to {discordbot_id} with the name {discordbot_name}
 	set {_version} to line 1 from url "{@url}"
+	wait 2 second
 	send "---------------------------------------------" to console
 	send "{@prefix} &aPunishment skript - &aBetöltés..." to console
 	wait 1 tick
-	if yaml file "{configpath}" exists:
+	if yaml file "{@configpath}" exists:
 		send "{@prefix} &aPunishment skript - &aConfig betöltése..." to console
 		wait 1 tick
 		load yaml "{@configpath}" as "{@configpath}"
 		read()
 		send "{@prefix} &aPunishment skript - &aConfig betöltése sikeres!" to console
 		if yml file "{@listpath}" exists:
-			send "{@prefix} &aPunishment skript - &aBannoltak listájának betöltése..." to console
+			send "{@prefix} &aPunishment skript - &aStaffok listájának betöltése..." to console
 			wait 1 tick
-			load yaml "{@listpath}" as "list"
-			#set {player} to yaml value "játékosnév" from "list"
-			send "{@prefix} &aPunishment skript - &aBannoltak listájának betöltése sikeres" to console
+			load yaml "{@listpath}" as "{@listpath}"
+			set {staff::*} to yaml list "Staffok" from "{@listpath}"
+			send "{@prefix} &aPunishment skript - &aStaffok listájának betöltése sikeres" to console
 		else:
-			createYMLFile("{@listpath}", "list: listateszt:test")
-			load yaml "{@listpath}" as "list"
-			#set {player} to yaml value "játékosnév" from "list"
+			createYMLFile("{@listpath}", "list: Staffok:Staffok neve")
+			load yaml "{@listpath}" as "{@listpath}"
+			set {staff::*} to yaml list "Staffok" from "{@listpath}"
 	else:
-		createYMLFile("{@configpath}", "value: command permission:punishment.use||value: ban permission:punishment.ban||value: unban permission:punishment.unban||value: kick permission:punishment.kick||value: permission message:&cNincs jogod ehhez!||value: prefix:&7[&cPunishment&7]||value: unknownargument:&cHasználat /punishmnet help||value: forver ban message:punishment.ban||value: ban message:punishment.ban||value: unban message:punishment.ban||value: kick message: ban")
+		createYMLFile("{@configpath}", "value: discord bot id: *ID*||value: discord bot name: *NAME*||value: command permission:punishment.use||value: ban permission:punishment.ban||value: unban permission:punishment.unban||value: kick permission:punishment.kick||value: permission message:&cNincs jogod ehhez!||value: prefix:&7[&cPunishment&7]||value: unknownargument:&cHasználat /punishmnet help||value: forver ban message:punishment.ban||value: ban message:punishment.ban||value: unban message:punishment.ban||value: kick message: ban")
 		load yaml "{@configpath}" as "{@configpath}"
 		read()
 	if "%{_version}%" is "{@version}":
@@ -251,7 +256,6 @@ command /punishment [<text>] [<text>]:
 		else if arg-1 is "skriptreload":
 			set {_reloadtime1} to now
 			execute console command "/sk reload {@skript}"
-			execute console command "/sk reload {@Tabcomplete}"
 			set {_reloadtime} to difference between {_reloadtime1} and now
 			message "%{prefix}% &aA skript újratöltése &b%{_reloadtime}% &aidő alatt!"
 		
@@ -270,8 +274,10 @@ command /punishment [<text>] [<text>]:
 		
 		else if arg-1 is "file":
 			set {_reloadtime1} to now
-			createYMLFile("{@configpath}", "value: permission:punishment.use||value: permission message:&cNincs jogod ehhez!||value: prefix:&7[&cPunishment&7]||value: unknownargument:&cHasználat: /punishment help")
+			createYMLFile("{@configpath}", "value: discord bot id: *ID*||value: discord bot name: *NAME*||value: command permission:punishment.use||value: ban permission:punishment.ban||value: unban permission:punishment.unban||value: kick permission:punishment.kick||value: permission message:&cNincs jogod ehhez!||value: prefix:&7[&cPunishment&7]||value: unknownargument:&cHasználat /punishmnet help||value: forver ban message:punishment.ban||value: ban message:punishment.ban||value: unban message:punishment.ban||value: kick message: ban")
 			load yaml "{@configpath}" as "{@configpath}"
+			createYMLFile("{@listpath}", "list: Staffok:Staffok neve")
+			load yaml "{@listpath}" as "{@listpath}"
 
 			read()
 
@@ -305,7 +311,23 @@ command /punishment [<text>] [<text>]:
 			# update
 			
 			else if arg-2 is "update":
-				message "%{prefix}% &cMég nem müködik!"
+				set {_version} to line 1 from url "{@url}"
+				if "%{_version}%" is "{@version}":
+					message "{@prefix} &aNincs elérhető frissítés :)"
+				else:
+					set {_value} to text from url "https://pastebin.com/raw/RbzMPk3L"
+					set {_durl} to "https://github.com/InternalGaming02/Punishment-Skript/releases/download/%{_value}%/Punishment.sk"
+					skutil download file from {_durl} to file "plugins/skript/scripts/punishment-skript/download.sk"
+					wait 1 tick
+					message "Fájl sikeresen letölve"
+					# execute console command "/sk enable punishment"
+					wait 1 tick
+					message "Update sikeres"
+					execute console command "/sk disable punisment-skript/punishment"
+					message "Update sikeres"
+
+
+
 			else if arg-2 isn't "version" or "log" or "updatelog" or "check" or "updatecheck" or "update" or "github":
 				if executor is console:
 					send "&7---------------------&bSegítség&7---------------------" to console
@@ -358,10 +380,12 @@ command /ban [<offline player>] [<text>] [<timespan>]:
 			#opengui
 			if arg-2 is set:
 				ban arg-1 due to arg-2
+				kick arg-1 due to arg-2
 				if arg-3 is set:
 					send "a"
 			else:
 				ban arg-1 due to {forver_ban_message}
+				kick arg-1 due to {forver_ban_message}
 				
 		else:
 			message "Használat /ban [játékosnév] [ok] [idő]"
@@ -414,25 +438,21 @@ command /kick [<offline player>] [<text>]:
 #      	  Report          #
 #                         #
 #*************************#
+function reportembed(reason : text, reported : player, reporter: player):
+	create embed:
+		set the title of embed to title with text "%{_reported}%"
+		set the description of embed to "%{_reason}% miatt lett jelentve" #%nl%
+		set the author info of the embed to author named "%{_reporter}% küldte be" with no url
+		set the colour of the embed to Cyan
+		# add split field named "Field Name" with value "Color is a java Color%nl%Not a string" to embed
+		set the footer of embed to footer with text "Jelentve ekkor:" and icon "https://cdn.discordapp.com/attachments/611490783236849673/636950347360894976/NW_dc_logo.png"
+		set the timestamp of embed to now
+	send the last created embed to channel with id "611490783236849673" with {discordbot_name}
 
-on inventory click:
-	if inventory name of player's current inventory is "&6%{reportdc.%player%}% &8jelentése":
-	if clicked slot is 10:
-		cancel event
-		create embed:	
-			set the title of embed to title with text "Title"
-			set the description of embed to "Description%nl%The title leads to the URL, if given"
-			set the author info of the embed to author named "Author name (Can point to URL)" with no url and icon "https://cdn.discordapp.com/attachments/236641445363056651/405167105760296971/Logov2.jpg"
-			set the colour of the embed to Cyan
-			add split field named "Field Name" with value "Colour sets %nl%< that" to embed
-			add split field named "Field Name" with value "Color is a java Color%nl%Not a string" to embed
-			add split field named "Field Name" with value "Field value" to embed
-			set the timestamp of embed to now
-		send last created embed to channel with id "481366165369651211" with "Helper-bot_BETA"
-		close player's inventory
-	else:
-		cancel event
-
+function report(reason : text, reported : player, reporter: player):
+	loop all players:
+		if {staff::*} contains loop-player:
+			send "{@prefix} &a%{_reporter}% &bjelentette: &a%{_reported}% &bjátékost ezzel az indokkal: &c%{_reason}%" to loop-player
 
 command /reportdc [<offline player>]:
 	permission: nincs
@@ -441,24 +461,36 @@ command /reportdc [<offline player>]:
 	trigger:
 		if arg-1 is set:
 			if arg-1 is online:
-				set {reportdc.%player%} to arg-1
-				open chest inventory with 4 rows named "&6%arg-1% &8jelentése" to player
-				set {_slotglass_up} to 0
-				set {_slotglass_down} to 27
+				open chest with 5 rows named "&6%arg-1% &rjelentése" to player
+				set {_i} to 0
+				wait 1 tick	
+				loop 10 times:
+					format slot {_i} of player with {@mainglass} named "&f" to be unstealable
+					add 1 to {_i}
+				format slot 17 of player with {@mainglass} named "&f" to be unstealable
+				format slot 18 of player with {@mainglass} named "&f" to be unstealable
+				format slot 26 of player with {@mainglass} named "&f" to be unstealable
+				format slot 27 of player with {@mainglass} named "&f" to be unstealable
+				format slot 35 of player with {@mainglass} named "&f" to be unstealable
+				set {_i} to 36
 				loop 9 times:
-					set slot {_slotglass_up} of player's current inventory to gray stained glass pane named "&a"
-					add 1 to {_slotglass_up}
-				loop 9 times:
-					set slot {_slotglass_down} of player's current inventory to gray stained glass pane named "&a"
-					add 1 to {_slotglass_down}
-				set slot 9 of player's current inventory to gray stained glass pane named "&a"
-				
-				set slot 10 of player's current inventory to iron sword named "&4&lKillAura" with lore "&7Játékos jelentésért kattincs ide!"
-				
-				set slot 17 of player's current inventory to gray stained glass pane named "&a"
-				set slot 18 of player's current inventory to gray stained glass pane named "&a"
-				set slot 26 of player's current inventory to gray stained glass pane named "&a"
-					
+					format slot {_i} of player with {@mainglass} named "&f" to be unstealable
+					add 1 to {_i}
+				format slot 10 of player with iron sword named "&cKillaura" to close then run [reportembed("Killaura", arg-1, player)]
+				format slot 11 of player with diamond sword named "&cReach" to close then run [reportembed("Reach", arg-1, player)]
+				format slot 12 of player with bow named "&cFastBow" to close then run [reportembed("Fastbow", arg-1, player)]
+				format slot 14 of player with iron boots named "&bSpeed" to close then run [reportembed("Speed", arg-1, player)]
+				format slot 15 of player with feather named "&bFlight" to close then run [reportembed("Flight", arg-1, player)]
+				format slot 16 of player with rabbit foot named "&bBhop" to close then run [reportembed("Bhop", arg-1, player)]
+				format slot 25 of player with golden boots named "&bNofall" to close then run [reportembed("Nofall", arg-1, player)]
+				format slot 24 of player with water bucket named "&bJesus" to close then run [reportembed("Jesus", arg-1, player)]
+				format slot 23 of player with ladder named "&bWall climb" to close then run [reportembed("Wal climb", arg-1, player)]
+				format slot 19 of player with diamond ore named "&aXray" to close then run [reportembed("Xray", arg-1, player)]
+				format slot 20 of player with golden apple named "&aRegen" to close then run [reportembed("Regen", arg-1, player)]
+				format slot 21 of player with dirt named "&aScaffold" to close then run [reportembed("Scaffold", arg-1, player)]
+				format slot 29 of player with writable book named "&6Egyéni jelentés" to close #új gui megnyítás
+				format slot 33 of player with barrier named "&cMégse" to close
+
 			else:
 				message "%{prefix}% &6%arg-1% &cnem online!"
 		else:
@@ -470,6 +502,42 @@ command /report [<offline player>]:
 	executable by: console and players
 	trigger:
 		if arg-1 is set:
-			#gui
+			if arg-1 is online:
+				open chest with 5 rows named "&6%arg-1% &rjelentése" to player
+				set {_i} to 0
+				wait 1 tick	
+				loop 10 times:
+					format slot {_i} of player with {@mainglass} named "&f" to be unstealable
+					add 1 to {_i}
+				format slot 17 of player with {@mainglass} named "&f" to be unstealable
+				format slot 18 of player with {@mainglass} named "&f" to be unstealable
+				format slot 26 of player with {@mainglass} named "&f" to be unstealable
+				format slot 27 of player with {@mainglass} named "&f" to be unstealable
+				format slot 35 of player with {@mainglass} named "&f" to be unstealable
+				set {_i} to 36
+				loop 9 times:
+					format slot {_i} of player with {@mainglass} named "&f" to be unstealable
+					add 1 to {_i}
+				format slot 10 of player with iron sword named "&cKillaura" to close then run [report("Killaura", arg-1, player)]
+				format slot 11 of player with diamond sword named "&cReach" to close then run [report("Reach", arg-1, player)]
+				format slot 12 of player with bow named "&cFastBow" to close then run [report("Fastbow", arg-1, player)]
+				format slot 14 of player with iron boots named "&bSpeed" to close then run [report("Speed", arg-1, player)]
+				format slot 15 of player with feather named "&bFlight" to close then run [report("Flight", arg-1, player)]
+				format slot 16 of player with rabbit foot named "&bBhop" to close then run [report("Bhop", arg-1, player)]
+				format slot 25 of player with golden boots named "&bNofall" to close then run [report("Nofall", arg-1, player)]
+				format slot 24 of player with water bucket named "&bJesus" to close then run [report("Jesus", arg-1, player)]
+				format slot 23 of player with ladder named "&bWall climb" to close then run [report("Wal climb", arg-1, player)]
+				format slot 19 of player with diamond ore named "&aXray" to close then run [report("Xray", arg-1, player)]
+				format slot 20 of player with golden apple named "&aRegen" to close then run [report("Regen", arg-1, player)]
+				format slot 21 of player with dirt named "&aScaffold" to close then run [report("Scaffold", arg-1, player)]
+				format slot 29 of player with writable book named "&6Egyéni jelentés" to close #új gui megnyítás
+				format slot 33 of player with barrier named "&cMégse" to close
+
+			else:
+				message "%{prefix}% &6%arg-1% &cnem online!"
 		else:
 			message  "%{prefix}% {használat}"
+
+command /ertek:
+	trigger:
+		broadcast "%{staff::*}%"
