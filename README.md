@@ -5,7 +5,7 @@ Verzió szám: **[1.0.2 - Tab complete befejezve](https://pastebin.com/RbzMPk3L)
 Készítette: **[AdamGaming13](https://www.youtube.com/channel/UCMW9GpGBMsOtKGsN1JeXN6Q)**
 
 ## **Funkciók:**
-- [ ] GUI
+- [x] GUI
 - [ ] Tempban
 - [ ] Mute
 - [ ] Auto update
@@ -24,9 +24,7 @@ Készítette: **[AdamGaming13](https://www.youtube.com/channel/UCMW9GpGBMsOtKGsN
 - **[SkUtilities](https://github.com/tim740/skUtilities/releases/)**
 - **[Skript-json](https://github.com/btk5h/skript-json/releases)**
 - **[MundoSK](https://github.com/MundoSK/MundoSK/raw/af76545e42892aa63e0952ad767e16a57ed08782/MundoSK.jar)**
-- **[TuSKe](https://www.spigotmc.org/resources/tuske.25136/)**
 - **[skript-mirror](https://github.com/btk5h/skript-mirror/releases)**
-- **[Skellet](https://github.com/TheLimeGlass/Skellett/releases)**
 - **[json.sk](https://forums.skunity.com/resources/json-sk.23/)**
 
 ## **Parancsok:**
