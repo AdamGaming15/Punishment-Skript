@@ -1,11 +1,11 @@
 # **Punishment Skript**
 
-Verzió szám: **[1.0.1 - More options](https://pastebin.com/RbzMPk3L)**
+Verzió szám: **[1.0.3 - GUI + Staff rendszer](https://pastebin.com/RbzMPk3L)**
 
 Készítette: **[AdamGaming13](https://www.youtube.com/channel/UCMW9GpGBMsOtKGsN1JeXN6Q)**
 
 ## **Funkciók:**
-- [ ] GUI
+- [x] GUI
 - [ ] Tempban
 - [ ] Mute
 - [ ] Auto update
@@ -15,6 +15,8 @@ Készítette: **[AdamGaming13](https://www.youtube.com/channel/UCMW9GpGBMsOtKGsN
 - [x] Kick
 - [x] Update check
 - [x] Config fájl
+- [x] Discord (Report rendszer)
+- [x] Report rendszer
 
 ## **Követelmények\Requirements:**
 
@@ -24,9 +26,9 @@ Készítette: **[AdamGaming13](https://www.youtube.com/channel/UCMW9GpGBMsOtKGsN
 - **[SkUtilities](https://github.com/tim740/skUtilities/releases/)**
 - **[Skript-json](https://github.com/btk5h/skript-json/releases)**
 - **[MundoSK](https://github.com/MundoSK/MundoSK/raw/af76545e42892aa63e0952ad767e16a57ed08782/MundoSK.jar)**
-- **[TuSKe](https://www.spigotmc.org/resources/tuske.25136/)**
 - **[skript-mirror](https://github.com/btk5h/skript-mirror/releases)**
 - **[json.sk](https://forums.skunity.com/resources/json-sk.23/)**
+- **[Vixio](https://github.com/iBlitzkriegi/Vixio/releases)**
 
 ## **Parancsok:**
 
@@ -42,3 +44,5 @@ Készítette: **[AdamGaming13](https://www.youtube.com/channel/UCMW9GpGBMsOtKGsN
 - `/ban [játékos] <indok> <idő>` \- Kitiltja a játékost egy indokkal (Idő nem működik).    **[] \- kötelező megadni <> \- optimális** 
 - `/kick [játékos] <indok>` \-  Kirúgja a játékost egy indokkal.    **[] \- kötelező megadni <> \- optimális**
 - `/unban [játékos] <indok>` \- Feloldja a játékost tiltálsát egy indokkal.    **[] \- kötelező megadni <> \- optimális**
+- `/reportdc [játékos]` \- Jelent egy játékost discordon a megadott szobában **[] \- kötelező megadni**
+- `/report [játékos]` \- Jelent egy játékost discordon a megadott szobában **[] \- kötelező megadni**
