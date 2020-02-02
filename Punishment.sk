@@ -254,21 +254,23 @@ command /punishment [<text>] [<text>]:
 		# Skript reload
 		
 		else if arg-1 is "skriptreload":
-			set {_reloadtime1} to now
+			set {skreload_t} to now
 			execute console command "/sk reload {@skript}"
-			set {_reloadtime} to difference between {_reloadtime1} and now
-			message "%{prefix}% &aA skript újratöltése &b%{_reloadtime}% &aidő alatt!"
+			login to {discordbot_id} with the name {discordbot_name}
+			set {_diff} to difference between {skreload_t} and now
+			message "%{prefix}% &aA skript újratöltése &b%{_diff}% &aidő alatt!"
 		
 		# Reload
 		
 		else if arg-1 is "reload":
-			set {_reloadtime1} to now
+			set {reload_t} to now
 			wait 1 tick
 
 			read()
-
-			set {_reloadtime} to difference between {_reloadtime1} and now
-			message "%{prefix}% &aA fájlok újratöltése &b%{_reloadtime}% &aidő alatt!"
+			
+			login to {discordbot_id} with the name {discordbot_name}
+			set {_diff} to difference between {reload_t} and now
+			message "%{prefix}% &aA fájlok újratöltése &b%{_diff}% &aidő alatt!"
 
 		# File
 		
