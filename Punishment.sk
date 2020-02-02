@@ -34,7 +34,7 @@ effect set completions to %strings% at %string%:
             set {_completions::*} to expressions-1
             loop expression-2.length() times:
                 loop {_completions::*}:
-                    if {_completions::%loop-index%}.substring(loop-number - 1, loop-number) isn't expression-2.substring(loop-number - 1, loop-number):
+                    if {_completions::%loop-index%}.substring(loop-number - 1 and loop-number) isn't expression-2.substring(loop-number - 1 and loop-number):
                         clear {_completions::%loop-index%} 
             event.setCompletions(Arrays.asList({_completions::*}))
 
@@ -490,7 +490,7 @@ command /reportdc [<offline player>]:
 				format slot 19 of player with diamond ore named "&aXray" to close then run [reportembed("Xray", arg-1, player)]
 				format slot 20 of player with golden apple named "&aRegen" to close then run [reportembed("Regen", arg-1, player)]
 				format slot 21 of player with dirt named "&aScaffold" to close then run [reportembed("Scaffold", arg-1, player)]
-				format slot 29 of player with writable book named "&6Egyéni jelentés" to close #új gui megnyítás
+				format slot 29 of player with writable book named "&6Egyéni jelentés" to close then run [set {reporting.dc.%player%} to true]->[set {reporting.dc.reported} to arg-1]->[set {reporting.dc.reporter} to player]->[send "Írd meg mit szeretnél jelenteni!" to player]
 				format slot 33 of player with barrier named "&cMégse" to close
 
 			else:
@@ -532,13 +532,27 @@ command /report [<offline player>]:
 				format slot 19 of player with diamond ore named "&aXray" to close then run [report("Xray", arg-1, player)]
 				format slot 20 of player with golden apple named "&aRegen" to close then run [report("Regen", arg-1, player)]
 				format slot 21 of player with dirt named "&aScaffold" to close then run [report("Scaffold", arg-1, player)]
-				format slot 29 of player with writable book named "&6Egyéni jelentés" to close #új gui megnyítás
+				format slot 29 of player with writable book named "&6Egyéni jelentés" to close then run [set {reporting.%player%} to true]
 				format slot 33 of player with barrier named "&cMégse" to close
 
 			else:
 				message "%{prefix}% &6%arg-1% &cnem online!"
 		else:
 			message  "%{prefix}% {használat}"
+
+on chat:
+	if {reporting.%player%} is true:		
+		set {reporting.customreport} to message 
+		set {reporting.%player%} to false
+		broadcast "staff chat: %{reporting.customreport}%"
+		cancel event
+	if {reporting.dc.%player%} is true:
+		set {reporting.dc.customreport} to message 
+		set {reporting.dc.%player%} to false
+		reportembed("%{reporting.dc.customreport}%", {reporting.dc.reported}, {reporting.dc.reporter})
+		cancel event
+	
+
 
 command /ertek:
 	trigger:
