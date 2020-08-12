@@ -37,7 +37,7 @@ Készítette: **[AdamGaming14](https://www.youtube.com/channel/UCMW9GpGBMsOtKGsN
 - `/punishment` - Fő parancs.
   - `help` - A skript használatának utasításai.
   - `skriptreload` - **FIGYELEM!** Csak akkor használd ha teljes skriptet újra akarod índítani!
-  - `reload` - Újratöltia a config fáljt. **Használd a /p skriptreload helyett!**
+  - `reload` - Újratölti az egész skriptet. **Használd a /p skriptreload helyett!**
   - `file` - **FIGYELEM!** Csak akkor használd ha nincs meg a config fájl vagy újra akarod rakni a configot!
   - `update` - A Skript frissítési beállításai.
     - `log` - Fríssétesi napló megnézése.
