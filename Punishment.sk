@@ -21,7 +21,6 @@ options:
 #                         #
 #*************************#
 
-
 import:
     java.util.Arrays
     org.bukkit.event.server.TabCompleteEvent
@@ -81,15 +80,14 @@ on TabCompleteEvent:
 #*************************#
 
 on join:
-	set {_version} to line 1 from url "{@url}"
-	if "%{_version}%" isn't "{@version}":
+	set {_ver} to line 1 from url "{@url}"
+	if "%{_ver}%" isn't "{@version}":
 		if player has permission "punishment.update.notify":
 			message "&7---------------------------------------"
-			message "&bÚj verzió érhető el: &6%{_version}%"
+			message "&bÚj verzió érhető el: &6%{_ver}%"
 			message "&bAz updatokért nézd meg a Github oldalt!"
 			message "&6{@updatelog}"
-			message "&7---------------------------------------"
-			
+			message "&7---------------------------------------"			
 			
 #*************************#
 #                         #
@@ -116,36 +114,35 @@ function createYMLFile(directory: text, yaml: text, usageSeperator: string = "||
 #                         #
 #*************************#
 
-function helpa(receiver : player):
+function help(p : player):
 
-	send "&7---------------------&bSegítség&7---------------------" to {_receiver}
-	json("%{_receiver}%", "&b/punishment help||ttp:&bKatt a parancs futtatásáért||sgt:/p help|| - &7 Ennek a menünek a megnyítása")
-	json("%{_receiver}%", "&b/punishment reload||ttp:&bKatt a parancs futtatásáért||sgt:/p reload|| - &7 Config újratötlése")
-	json("%{_receiver}%", "&b/punishment skriptreload||ttp:&bKatt a parancs futtatásáért||sgt:/p skriptreload|| - &7 Skript újratötlése")
-	json("%{_receiver}%", "&b/punishment file||ttp:&bKatt a parancs futtatásáért||sgt:/p file|| - &c Fájlok újragenerálása")
-	json("%{_receiver}%", "&b/punishment update||ttp:&bKatt a parancs futtatásáért||sgt:/p update|| - &7 Frissítések")
-	json("%{_receiver}%", "&b/punishment github||ttp:&bKatt a link megnyításáért||url:https://github.com/InternalGaming02/BanGUI-Skript|| - &7 Github")
-	json("%{_receiver}%", "&b/ban [játékosnév] [idő] [ok]||ttp:&bKatt a parancs futtatásáért||sgt:/ban|| - &7Játékos kitiltása")
-	json("%{_receiver}%", "&b/unban [játékosnév] [ok]||ttp:&bKatt a parancs futtatásáért||sgt:/unban|| - &7Játékos kitiltásának feloldása")
-	json("%{_receiver}%", "&b/kick [játékosnév] [ok]||ttp:&bKatt a parancs futtatásáért||sgt:/kick|| - &7Játékos kirúgása")
-	json("%{_receiver}%", "&b/mute [játékosnév] [idő] [ok]||ttp:&bKatt a parancs futtatásáért||sgt:/mute|| - &7Játékos némítása")
-	json("%{_receiver}%", "&b/report [játékosnév]||ttp:&bKatt a parancs futtatásáért||sgt:/report|| - &7Játékos jelentése")
-	json("%{_receiver}%", "&b/reportdc [játékosnév]||ttp:&bKatt a parancs futtatásáért||sgt:/reportdc|| - &7Játékos jelentése discordon")
-	send "&7-------------------------------------------------" to {_receiver}
+	send "&7---------------------&bSegítség&7---------------------" to {_p}
+	json("%{_p}%", "&b/punishment help||ttp:&bKatt a parancs futtatásáért||sgt:/p help|| - &7 Ennek a menünek a megnyítása")
+	json("%{_p}%", "&b/punishment reload||ttp:&bKatt a parancs futtatásáért||sgt:/p reload|| - &7 Config újratötlése")
+	json("%{_p}%", "&b/punishment skriptreload||ttp:&bKatt a parancs futtatásáért||sgt:/p skriptreload|| - &7 Skript újratötlése")
+	json("%{_p}%", "&b/punishment file||ttp:&bKatt a parancs futtatásáért||sgt:/p file|| - &c Fájlok újragenerálása")
+	json("%{_p}%", "&b/punishment update||ttp:&bKatt a parancs futtatásáért||sgt:/p update|| - &7 Frissítések")
+	json("%{_p}%", "&b/punishment github||ttp:&bKatt a link megnyításáért||url:https://github.com/InternalGaming02/BanGUI-Skript|| - &7 Github")
+	json("%{_p}%", "&b/ban [játékosnév] [idő] [ok]||ttp:&bKatt a parancs futtatásáért||sgt:/ban|| - &7Játékos kitiltása")
+	json("%{_p}%", "&b/unban [játékosnév] [ok]||ttp:&bKatt a parancs futtatásáért||sgt:/unban|| - &7Játékos kitiltásának feloldása")
+	json("%{_p}%", "&b/kick [játékosnév] [ok]||ttp:&bKatt a parancs futtatásáért||sgt:/kick|| - &7Játékos kirúgása")
+	json("%{_p}%", "&b/mute [játékosnév] [idő] [ok]||ttp:&bKatt a parancs futtatásáért||sgt:/mute|| - &7Játékos némítása")
+	json("%{_p}%", "&b/report [játékosnév]||ttp:&bKatt a parancs futtatásáért||sgt:/report|| - &7Játékos jelentése")
+	json("%{_p}%", "&b/reportdc [játékosnév]||ttp:&bKatt a parancs futtatásáért||sgt:/reportdc|| - &7Játékos jelentése discordon")
+	send "&7-------------------------------------------------" to {_p}
 
-function updatehelp(receiver : player):
-
-	set {_version} to line 1 from url "{@url}"
-	send "&7---------------------&bSegítség&7---------------------" to {_receiver}
-	if "%{_version}%" is "{@version}":
-		json("%{_receiver}%", "&b/punishment update check||ttp:&bA legfrissebb verzió van a rendszeren|| - &7 Verziószám ellenőrzése")
+function uhelp(p : player):
+	set {_ver} to line 1 from url "{@url}"
+	send "&7---------------------&bSegítség&7---------------------" to {_p}
+	if "%{_ver}%" is "{@version}":
+		json("%{_p}%", "&b/punishment update check||ttp:&bA legfrissebb verzió van a rendszeren|| - &7 Verziószám ellenőrzése")
 	else:
-		json("%{_receiver}%", "&b/punishment update check||ttp:&bÚj verzió elérhető: &c%{_version}%|| - &7 Verziószám ellenőrzése")
-	json("%{_receiver}%", "&b/punishment update log||ttp:&bKatt a parancs futtatásáért||sgt:/p update log|| - &7 Github frissítési napló")
-	json("%{_receiver}%", "&b/punishment update update||ttp:&bKatt a parancs futtatásáért||sgt:/p update update|| - &7 Skript frissítése")
-	send "&7-------------------------------------------------" to {_receiver}
+		json("%{_p}%", "&b/punishment update check||ttp:&bÚj verzió elérhető: &c%{_ver}%|| - &7 Verziószám ellenőrzése")
+	json("%{_p}%", "&b/punishment update log||ttp:&bKatt a parancs futtatásáért||sgt:/p update log|| - &7 Github frissítési napló")
+	json("%{_p}%", "&b/punishment update update||ttp:&bKatt a parancs futtatásáért||sgt:/p update update|| - &7 Skript frissítése")
+	send "&7-------------------------------------------------" to {_p}
 
-function read():
+function file():
 	load yaml "{@configpath}" as "{@configpath}"
 	load yaml "{@listpath}" as "{@listpath}"
 	set {prefix} to yaml value "prefix" from "{@configpath}"
@@ -175,37 +172,25 @@ function read():
 
 
 on skript load:
-	login to {discordbot_id} with the name {discordbot_name}
-	set {_version} to line 1 from url "{@url}"
+	set {_ver} to line 1 from url "{@url}"
 	wait 2 second
 	send "---------------------------------------------" to console
 	send "{@prefix} &aPunishment skript - &aBetöltés..." to console
-	wait 1 tick
 	if yaml file "{@configpath}" exists:
 		send "{@prefix} &aPunishment skript - &aConfig betöltése..." to console
 		wait 1 tick
 		load yaml "{@configpath}" as "{@configpath}"
-		read()
+		file()
 		send "{@prefix} &aPunishment skript - &aConfig betöltése sikeres!" to console
-		if yml file "{@listpath}" exists:
-			send "{@prefix} &aPunishment skript - &aStaffok listájának betöltése..." to console
-			wait 1 tick
-			load yaml "{@listpath}" as "{@listpath}"
-			set {staff::*} to yaml list "Staffok" from "{@listpath}"
-			send "{@prefix} &aPunishment skript - &aStaffok listájának betöltése sikeres" to console
-		else:
-			createYMLFile("{@listpath}", "list: Staffok:Staffok neve")
-			load yaml "{@listpath}" as "{@listpath}"
-			set {staff::*} to yaml list "Staffok" from "{@listpath}"
 	else:
 		createYMLFile("{@configpath}", "value: discord bot id: *ID*||value: discord bot name: *NAME*||value: command permission:punishment.use||value: ban permission:punishment.ban||value: unban permission:punishment.unban||value: kick permission:punishment.kick||value: permission message:&cNincs jogod ehhez!||value: prefix:&7[&cPunishment&7]||value: unknownargument:&cHasználat /punishmnet help||value: forver ban message:punishment.ban||value: ban message:punishment.ban||value: unban message:punishment.ban||value: kick message: ban")
 		load yaml "{@configpath}" as "{@configpath}"
-		read()
-	if "%{_version}%" is "{@version}":
+		file()
+	if "%{_ver}%" is "{@version}":
 		send "%{prefix}% &aNincs elérhető frissítés :)" to console
 	else:
 		send "{@prefix} &bFrissítés elérhető!" to console
-		send "{@prefix} &bVerzió szám: &6%{_version}%!" to console
+		send "{@prefix} &bVerzió szám: &6%{_ver}%!" to console
 		send "{@prefix} &bInnen tudod letöltni: {@updatelog}!" to console
 	send "---------------------------------------------" to console
 
@@ -223,15 +208,12 @@ on skript unload:
 
 
 command /punishment [<text>] [<text>]:
-	description: "A főparancs"
 	permission: {main_command_permission}
 	permission message: {prefix}{permission_message}
 	executable by: console and players
 	aliases: /p, /punish
 	trigger:
-		
 		# Help
-		
 		if arg-1 is "help":
 			if executor is console:
 				send "&7---------------------&bSegítség&7---------------------" to console
@@ -249,87 +231,55 @@ command /punishment [<text>] [<text>]:
 				send "/reportdc [játékosnév] &r- &7Játékos jelentése discrodra" to console
 				send "&7-------------------------------------------------" to console
 			else:
-				helpa(player)
+				help(player)
 		
 		# Skript reload
 		
 		else if arg-1 is "skriptreload":
-			set {skreload_t} to now
+			set {_t} to now
 			execute console command "/sk reload {@skript}"
-			login to {discordbot_id} with the name {discordbot_name}
-			set {_diff} to difference between {skreload_t} and now
-			message "%{prefix}% &aA skript újratöltése &b%{_diff}% &aidő alatt!"
+			set {_diff} to difference between {_t} and now
+			message "%{prefix}% &aA skript újratöltve &b%{_diff}% &aidő alatt!"
 		
 		# Reload
 		
 		else if arg-1 is "reload":
-			set {reload_t} to now
+			set {_t} to now
 			wait 1 tick
-
-			read()
-			
-			login to {discordbot_id} with the name {discordbot_name}
-			set {_diff} to difference between {reload_t} and now
-			message "%{prefix}% &aA fájlok újratöltése &b%{_diff}% &aidő alatt!"
+			file()		
+			set {_diff} to difference between {_t} and now
+			message "%{prefix}% &aA fájlok újratöltve &b%{_diff}% &aidő alatt!"
 
 		# File
 		
 		else if arg-1 is "file":
-			set {_reloadtime1} to now
+			set {_t} to now
 			createYMLFile("{@configpath}", "value: discord bot id: *ID*||value: discord bot name: *NAME*||value: command permission:punishment.use||value: ban permission:punishment.ban||value: unban permission:punishment.unban||value: kick permission:punishment.kick||value: permission message:&cNincs jogod ehhez!||value: prefix:&7[&cPunishment&7]||value: unknownargument:&cHasználat /punishmnet help||value: forver ban message:punishment.ban||value: ban message:punishment.ban||value: unban message:punishment.ban||value: kick message: ban")
 			load yaml "{@configpath}" as "{@configpath}"
 			createYMLFile("{@listpath}", "list: Staffok:Staffok neve")
 			load yaml "{@listpath}" as "{@listpath}"
-
-			read()
-
-			set {_reloadtime} to difference between {_reloadtime1} and now
-			message "%{prefix}% &aA fájlok újragenerálása &b%{_reloadtime}% &aidő alatt!"
+			file()
+			set {_diff} to difference between {_t} and now
+			message "%{prefix}% &aA fájlok újragenerálva &b%{_diff}% &aidő alatt!"
 
 		# Update
 		
 		else if arg-1 is "update":
-
 			# version
-
 			if arg-2 is "version":
 				message "%{prefix}% &aJelenlegi verzió: &6{@version}"
-
 			# log
-
 			else if arg-2 is "log" or "updatelog":
 				message "%{prefix}% &a{@updatelog}"
-
 			# check
-
 			else if arg-2 is "check" or "updatecheck":
-				set {_version} to line 1 from url "{@url}"
-				if "%{_version}%" isn't "{@version}":
+				set {_ver} to line 1 from url "{@url}"
+				if "%{_ver}%" isn't "{@version}":
 					message "%{prefix}% &cNem a legfrisseb verzió!"
 					message "%{prefix}% &6Innen tudod letölteni a legfríssebb verziót: &ahttps://github.com/InternalGaming02/BanGUI-Skript/releases"
 				else:
 					message "%{prefix}% &aA legfrissebb verzió van a rendszeren!"
 			
-			# update
-			
-			else if arg-2 is "update":
-				set {_version} to line 1 from url "{@url}"
-				if "%{_version}%" is "{@version}":
-					message "{@prefix} &aNincs elérhető frissítés :)"
-				else:
-					set {_value} to text from url "https://pastebin.com/raw/RbzMPk3L"
-					set {_durl} to "https://github.com/InternalGaming02/Punishment-Skript/releases/download/%{_value}%/Punishment.sk"
-					skutil download file from {_durl} to file "plugins/skript/scripts/punishment-skript/download.sk"
-					wait 1 tick
-					message "Fájl sikeresen letölve"
-					# execute console command "/sk enable punishment"
-					wait 1 tick
-					message "Update sikeres"
-					execute console command "/sk disable punisment-skript/punishment"
-					message "Update sikeres"
-
-
-
 			else if arg-2 isn't "version" or "log" or "updatelog" or "check" or "updatecheck" or "update" or "github":
 				if executor is console:
 					send "&7---------------------&bSegítség&7---------------------" to console
@@ -338,13 +288,11 @@ command /punishment [<text>] [<text>]:
 					send "&b/punishment update update &r- &7 Skript frissítése" to console
 					send "&7-------------------------------------------------" to console
 				else:
-					updatehelp(player)
-				
+					uhelp(player)			
 			# Github
 
 			else if arg-2 is "github":
-				message "%{prefix}% &6https://github.com/InternalGaming02/BanGUI-Skript/releases"
-				
+				message "%{prefix}% &6https://github.com/InternalGaming02/BanGUI-Skript/releases"	
 
 		else if arg-1 isn't "help" or "reload" or "skriptreload" or "file" or "update":
 			if executor is console:
@@ -363,197 +311,4 @@ command /punishment [<text>] [<text>]:
 				send "&b/reportdc [játékosnév] &r- &7Játékos jelentése discrodra" to console
 				send "&7-------------------------------------------------" to console
 			else:
-				helpa(player)
-
-
-
-#*************************#
-#                         #
-#      	    Ban           #
-#                         #
-#*************************#
-
-command /ban [<offline player>] [<text>] [<timespan>]:
-	permission: {ban_permission}
-	permission message: {prefix} {permission_message}
-	executable by: console and players
-	trigger:
-		if arg-1 is set:
-			#opengui
-			if arg-2 is set:
-				ban arg-1 due to arg-2
-				kick arg-1 due to arg-2
-				if arg-3 is set:
-					send "a"
-			else:
-				ban arg-1 due to {forver_ban_message}
-				kick arg-1 due to {forver_ban_message}
-				
-		else:
-			message "Használat /ban [játékosnév] [ok] [idő]"
-
-
-#*************************#
-#                         #
-#      	   Unban          #
-#                         #
-#*************************#
-
-
-command /unban [<offline player>] [<text>]:
-	permission: {unban_permission}
-	permission message: {prefix} {permission_message}
-	executable by: console and players
-	trigger:
-		if arg-1 is set:
-			#opengui
-			if arg-2 is set:
-				unban arg-1
-			else:
-				unban arg-1
-		else:
-			message "Használat /unban [játékosnév] [ok]"
-
-
-#*************************#
-#                         #
-#      	   Kick           #
-#                         #
-#*************************#
-
-command /kick [<offline player>] [<text>]:
-	permission: {kick_permission}
-	permission message: {prefix} {permission_message}
-	executable by: console and players
-	trigger:
-		if arg-1 is set:
-			#opengui
-			if arg-2 is set:
-				kick arg-1 due to arg-2
-			else:
-				kick arg-1 due to {kick_message}
-		else:
-			message "%{prefix}% %{kick_usage}%"
-			
-#*************************#
-#                         #
-#      	  Report          #
-#                         #
-#*************************#
-function reportembed(reason : text, reported : player, reporter: player):
-	create embed:
-		set the title of embed to title with text "%{_reported}%"
-		set the description of embed to "%{_reason}% miatt lett jelentve" #%nl%
-		set the author info of the embed to author named "%{_reporter}% küldte be" with no url
-		set the colour of the embed to Cyan
-		# add split field named "Field Name" with value "Color is a java Color%nl%Not a string" to embed
-		set the footer of embed to footer with text "Jelentve ekkor:" and icon "https://cdn.discordapp.com/attachments/611490783236849673/636950347360894976/NW_dc_logo.png"
-		set the timestamp of embed to now
-	send the last created embed to channel with id "611490783236849673" with {discordbot_name}
-
-function report(reason : text, reported : player, reporter: player):
-	loop all players:
-		if {staff::*} contains loop-player:
-			send "{@prefix} &a%{_reporter}% &bjelentette: &a%{_reported}% &bjátékost ezzel az indokkal: &c%{_reason}%" to loop-player
-
-command /reportdc [<offline player>]:
-	permission: nincs
-	permission message: {prefix} {permission_message}
-	executable by: console and players
-	trigger:
-		if arg-1 is set:
-			if arg-1 is online:
-				open chest with 5 rows named "&6%arg-1% &rjelentése" to player
-				set {_i} to 0
-				wait 1 tick	
-				loop 10 times:
-					format slot {_i} of player with {@mainglass} named "&f" to be unstealable
-					add 1 to {_i}
-				format slot 17 of player with {@mainglass} named "&f" to be unstealable
-				format slot 18 of player with {@mainglass} named "&f" to be unstealable
-				format slot 26 of player with {@mainglass} named "&f" to be unstealable
-				format slot 27 of player with {@mainglass} named "&f" to be unstealable
-				format slot 35 of player with {@mainglass} named "&f" to be unstealable
-				set {_i} to 36
-				loop 9 times:
-					format slot {_i} of player with {@mainglass} named "&f" to be unstealable
-					add 1 to {_i}
-				format slot 10 of player with iron sword named "&cKillaura" to close then run [reportembed("Killaura", arg-1, player)]
-				format slot 11 of player with diamond sword named "&cReach" to close then run [reportembed("Reach", arg-1, player)]
-				format slot 12 of player with bow named "&cFastBow" to close then run [reportembed("Fastbow", arg-1, player)]
-				format slot 14 of player with iron boots named "&bSpeed" to close then run [reportembed("Speed", arg-1, player)]
-				format slot 15 of player with feather named "&bFlight" to close then run [reportembed("Flight", arg-1, player)]
-				format slot 16 of player with rabbit foot named "&bBhop" to close then run [reportembed("Bhop", arg-1, player)]
-				format slot 25 of player with golden boots named "&bNofall" to close then run [reportembed("Nofall", arg-1, player)]
-				format slot 24 of player with water bucket named "&bJesus" to close then run [reportembed("Jesus", arg-1, player)]
-				format slot 23 of player with ladder named "&bWall climb" to close then run [reportembed("Wal climb", arg-1, player)]
-				format slot 19 of player with diamond ore named "&aXray" to close then run [reportembed("Xray", arg-1, player)]
-				format slot 20 of player with golden apple named "&aRegen" to close then run [reportembed("Regen", arg-1, player)]
-				format slot 21 of player with dirt named "&aScaffold" to close then run [reportembed("Scaffold", arg-1, player)]
-				format slot 29 of player with writable book named "&6Egyéni jelentés" to close then run [set {reporting.dc.%player%} to true]->[set {reporting.dc.reported} to arg-1]->[set {reporting.dc.reporter} to player]->[send "Írd meg mit szeretnél jelenteni!" to player]
-				format slot 33 of player with barrier named "&cMégse" to close
-
-			else:
-				message "%{prefix}% &6%arg-1% &cnem online!"
-		else:
-			message  "%{prefix}% {használat}"
-			
-command /report [<offline player>]:
-	permission: nincs
-	permission message: {prefix} {permission_message}
-	executable by: console and players
-	trigger:
-		if arg-1 is set:
-			if arg-1 is online:
-				open chest with 5 rows named "&6%arg-1% &rjelentése" to player
-				set {_i} to 0
-				wait 1 tick	
-				loop 10 times:
-					format slot {_i} of player with {@mainglass} named "&f" to be unstealable
-					add 1 to {_i}
-				format slot 17 of player with {@mainglass} named "&f" to be unstealable
-				format slot 18 of player with {@mainglass} named "&f" to be unstealable
-				format slot 26 of player with {@mainglass} named "&f" to be unstealable
-				format slot 27 of player with {@mainglass} named "&f" to be unstealable
-				format slot 35 of player with {@mainglass} named "&f" to be unstealable
-				set {_i} to 36
-				loop 9 times:
-					format slot {_i} of player with {@mainglass} named "&f" to be unstealable
-					add 1 to {_i}
-				format slot 10 of player with iron sword named "&cKillaura" to close then run [report("Killaura", arg-1, player)]
-				format slot 11 of player with diamond sword named "&cReach" to close then run [report("Reach", arg-1, player)]
-				format slot 12 of player with bow named "&cFastBow" to close then run [report("Fastbow", arg-1, player)]
-				format slot 14 of player with iron boots named "&bSpeed" to close then run [report("Speed", arg-1, player)]
-				format slot 15 of player with feather named "&bFlight" to close then run [report("Flight", arg-1, player)]
-				format slot 16 of player with rabbit foot named "&bBhop" to close then run [report("Bhop", arg-1, player)]
-				format slot 25 of player with golden boots named "&bNofall" to close then run [report("Nofall", arg-1, player)]
-				format slot 24 of player with water bucket named "&bJesus" to close then run [report("Jesus", arg-1, player)]
-				format slot 23 of player with ladder named "&bWall climb" to close then run [report("Wal climb", arg-1, player)]
-				format slot 19 of player with diamond ore named "&aXray" to close then run [report("Xray", arg-1, player)]
-				format slot 20 of player with golden apple named "&aRegen" to close then run [report("Regen", arg-1, player)]
-				format slot 21 of player with dirt named "&aScaffold" to close then run [report("Scaffold", arg-1, player)]
-				format slot 29 of player with writable book named "&6Egyéni jelentés" to close then run [set {reporting.%player%} to true]
-				format slot 33 of player with barrier named "&cMégse" to close
-
-			else:
-				message "%{prefix}% &6%arg-1% &cnem online!"
-		else:
-			message  "%{prefix}% {használat}"
-
-on chat:
-	if {reporting.%player%} is true:		
-		set {reporting.customreport} to message 
-		set {reporting.%player%} to false
-		broadcast "staff chat: %{reporting.customreport}%"
-		cancel event
-	if {reporting.dc.%player%} is true:
-		set {reporting.dc.customreport} to message 
-		set {reporting.dc.%player%} to false
-		reportembed("%{reporting.dc.customreport}%", {reporting.dc.reported}, {reporting.dc.reporter})
-		cancel event
-	
-
-
-command /ertek:
-	trigger:
-		broadcast "%{staff::*}%"
+				help(player)
