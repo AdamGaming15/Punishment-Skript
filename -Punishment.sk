@@ -187,7 +187,7 @@ on skript load:
 		load yaml "{@configpath}" as "{@configpath}"
 		file()
 	if "%{_ver}%" is "{@version}":
-		send "%{prefix}% &aNincs elérhető frissítés :)" to console
+		send "{@prefix} &aNincs elérhető frissítés :)" to console
 	else:
 		send "{@prefix} &bFrissítés elérhető!" to console
 		send "{@prefix} &bVerzió szám: &6%{_ver}%!" to console
