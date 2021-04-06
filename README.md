@@ -15,7 +15,7 @@ Készítette: **[AdamGaming14](https://www.youtube.com/channel/UCMW9GpGBMsOtKGsN
 - [ ] Kick
 - [ ] Hex color 1.16+
 - [ ] Update check
-- [x] Config fájl
+- [ ] Config fájl
 - [ ] Discord (Report rendszer)
 - [ ] Report rendszer
 
