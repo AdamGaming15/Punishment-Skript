@@ -1,0 +1,52 @@
+#Options
+
+on skript load:
+    send "---------------------------------------------" to console
+    send "{@prefix} &aPunishment skript DISCORD - &aBetöltés..." to console
+    login to "{@discordbot_TOKEN}" with name "{@discordbot_name}"
+    mark bot named "{@discordbot_name}" watching "Skript code and stuff"
+    send "{@prefix} &aPunishment skript DISCORD - &aSikeres betöltés!" to console
+    send "---------------------------------------------" to console
+
+#Report
+function reportembed(reason : text, reported : player, reporter: player):
+    make new embed:
+        set title of embed to "%{_reported}%"
+        set description of embed to "%{_reason}% miatt lett jelentve"
+        set author of embed to "%{_reporter}% küldte be"
+        set color of embed to yellow
+        set footer of embed to "Jelentve ekkor:"
+        set footer icon of embed to "https://cdn.discordapp.com/attachments/611490783236849673/636950347360894976/NW_dc_logo.png"
+        set timestamp of embed to now
+    send the last made embed in channel with id "819185118056022029" with "{@discordbot_name}"
+
+function report(reason : text, reported : player, reporter: player):
+	loop all players:
+		if {staff::*} contains loop-player:
+			send "{@prefix} &a%{_reporter}% &bjelentette: &a%{_reported}% &bjátékost ezzel az indokkal: &c%{_reason}%" to loop-player
+
+command /reportdc [<offline player>]:
+	permission: nincs
+	permission message: {@prefix} {@permission_message}
+	executable by: console and players
+	trigger:
+		if arg-1 is set:
+			if arg-1 is online:
+				send "GUI" to player
+			else:
+				message "{@prefix} &6%arg-1% &cnem online!"
+		else:
+			message  "{@prefix} {használat}"
+			
+command /report [<offline player>]:
+	permission: nincs
+	permission message: {@prefix} {@permission_message}
+	executable by: console and players
+	trigger:
+		if arg-1 is set:
+			if arg-1 is online:
+				send "GUI" to player
+			else:
+				message "{@prefix} &6%arg-1% &cnem online!"
+		else:
+			message  "{@prefix} {használat}"

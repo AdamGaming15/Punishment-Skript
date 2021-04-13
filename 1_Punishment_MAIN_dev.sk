@@ -1,0 +1,135 @@
+#*************************#
+#                         #
+#         Loader          #
+#                         #
+#*************************#
+
+#Reload
+on load:
+	set {prefix} to getFromConfig("prefix")
+	set {checkUpdates} to getFromConfig("checkUpdates")
+	set {url} to getFromConfig("url")
+	set {version} to getFromConfig("version")
+	set {updatelog} to getFromConfig("updatelog")
+	set {permission_message} to getFromConfig("permission_message")
+
+#Startup
+on skript load:
+	set {prefix} to getFromConfig("prefixx")
+	set {checkUpdates} to getFromConfig("checkUpdates")
+	set {url} to getFromConfig("url")
+	set {version} to getFromConfig("version")
+	set {updatelog} to getFromConfig("updatelog")
+	set {permission_message} to getFromConfig("permission_message")
+
+	send "---------------------------------------------" to console
+	send "%{prefix}% &aPunishment skript - &aBetöltés..." to console
+	#Update Checker
+	if {checkUpdates} is true:
+		set {_ver} to line 1 from url "%{url}%"
+		if "%{_ver}%" is "%{version}%":
+			send "%{prefix}% &aNincs elérhető frissítés :)" to console
+		else:
+			send "%{prefix}% &bFrissítés elérhető!" to console
+			send "%{prefix}% &bVerzió szám: &6%{_ver}%!" to console
+			send "%{prefix}% &bInnen tudod letöltni: %{updatelog}%!" to console
+	else:
+		send "%{prefix}% &cAz frissítő rendszer ki van kapcsolva!" to console
+	send "%{prefix}% &aPunishment skript - &aSikeres betöltés!" to console
+	send "---------------------------------------------" to console
+
+on skript unload:
+	send "---------------------------------------------" to console
+	send "%{prefix}% &aPunishment skript - &aLeállítása..." to console
+	send "---------------------------------------------" to console
+
+
+# Tab completer
+
+on tab complete of "/punishment", "/punish" and "/p":
+	set tab completions for position 1 to "help", "reload", "skriptreload", "file", "update" and "github"
+	if tab arg-1 is "update":
+		set tab completions for position 2 to "check", "log"
+
+# Join event
+
+on join:
+	if {checkUpdates} is true:
+		set {_ver} to line 1 from url "%{url}%"
+		if "%{_ver}%" isn't "%{version}%":
+			if player has permission "punishment.update.notify":
+				message "&7---------------------------------------"
+				message "&bÚj verzió érhető el: &6%{_ver}%"
+				message "&bAz updatokért nézd meg a Github oldalt!"
+				message "&6%{updatelog}%"
+				message "&7---------------------------------------"
+
+#*************************#
+#                         #
+#        Main Command     #
+#                         #
+#*************************#
+
+command /punishment [<text>] [<text>]:
+	permission: {main_command_permission}
+	permission message: "%{prefix}% %{permission_message}%"
+	executable by: console and players
+	aliases: /p, /punish
+	trigger:
+		# Help
+		if arg-1 is "help":
+			punishmentHelpForPlayer(executor)
+		
+		# Reload
+		
+		else if arg-1 is "reload":
+			set {_t} to now
+			execute console command "/sk reload Punishment-Skript/0_Punishment_CONFIG_dev"
+			execute console command "/sk reload Punishment-Skript/1_Punishment_MAIN_dev"
+			execute console command "/sk reload Punishment-Skript/2_Punishment_FUNCTIONS_DEV"
+			execute console command "/sk reload Punishment-Skript/3_Punishment_PUNISH_DEV"
+			execute console command "/sk reload Punishment-Skript/4_Punishment_DISCORD_DEV"
+			set {_diff} to difference between {_t} and now
+			message "%{prefix}% &aA skriptek újratöltve &b%{_diff}% &aidő alatt!"
+
+		# Update
+		
+		else if arg-1 is "update":
+			# version
+			if arg-2 is "version":
+				message "%{prefix}% &aJelenlegi verzió: &6%{version}%"
+			# log
+			else if arg-2 is "log" or "updatelog":
+				message "%{prefix}% &a%{updatelog}%"
+			# check
+			else if arg-2 is "check" or "updatecheck":
+				set {_ver} to line 1 from url "%{url}%"
+				if "%{_ver}%" isn't "%{version}%":
+					message "%{prefix}% &cNem a legfrisseb verzió!"
+					message "%{prefix}% &6Innen tudod letölteni a legfríssebb verziót: &ahttps://github.com/InternalGaming02/BanGUI-Skript/releases"
+				else:
+					message "%{prefix}% &aA legfrissebb verzió van a rendszeren!"			
+
+			else if arg-2 isn't "version" or "log" or "updatelog" or "check" or "updatecheck" or "update" or "github":
+				punishmentUpdateHelpForPlayer(executor)
+				
+			# Github
+
+			else if arg-2 is "github":
+				message "%{prefix}% &6https://github.com/InternalGaming02/BanGUI-Skript/releases"
+				
+
+		else if arg-1 isn't "help" or "reload" or "skriptreload" or "file" or "update":
+			punishmentHelpForPlayer(executor)
+
+# on chat:
+# 	if {reporting.%player%} is true:		
+# 		set {reporting.customreport} to message 
+# 		set {reporting.%player%} to false
+# 		broadcast "staff chat: %{reporting.customreport}%"
+# 		cancel event
+# 	if {reporting.dc.%player%} is true:
+# 		set {reporting.dc.customreport} to message 
+# 		set {reporting.dc.%player%} to false
+# 		reportembed("%{reporting.dc.customreport}%", {reporting.dc.reported}, {reporting.dc.reporter})
+# 		cancel event
