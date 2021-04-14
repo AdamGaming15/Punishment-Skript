@@ -3,19 +3,10 @@
 #         Loader          #
 #                         #
 #*************************#
+#Start-up
 
-#Reload
-on load:
-	set {prefix} to getFromConfig("prefix")
-	set {checkUpdates} to getFromConfig("checkUpdates")
-	set {url} to getFromConfig("url")
-	set {version} to getFromConfig("version")
-	set {updatelog} to getFromConfig("updatelog")
-	set {permission_message} to getFromConfig("permission_message")
-
-#Startup
 on skript load:
-	set {prefix} to getFromConfig("prefixx")
+	set {prefix} to getFromConfig("prefix")
 	set {checkUpdates} to getFromConfig("checkUpdates")
 	set {url} to getFromConfig("url")
 	set {version} to getFromConfig("version")
@@ -37,6 +28,18 @@ on skript load:
 		send "%{prefix}% &cAz frissítő rendszer ki van kapcsolva!" to console
 	send "%{prefix}% &aPunishment skript - &aSikeres betöltés!" to console
 	send "---------------------------------------------" to console
+
+#Reload
+
+on load:
+	set {prefix} to getFromConfig("prefix")
+	set {checkUpdates} to getFromConfig("checkUpdates")
+	set {url} to getFromConfig("url")
+	set {version} to getFromConfig("version")
+	set {updatelog} to getFromConfig("updatelog")
+	set {permission_message} to getFromConfig("permission_message")
+
+# Unload
 
 on skript unload:
 	send "---------------------------------------------" to console
