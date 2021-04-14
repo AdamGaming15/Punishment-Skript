@@ -1,0 +1,86 @@
+# Start-up
+
+on skript load:
+	set {prefix} to getFromConfig("prefix")
+	set {url} to getFromConfig("url")
+	set {permission_message} to getFromConfig("permission_message")
+	set {temporary_ban_message} to getFromConfig("temporary_ban_message")
+	set {ban_permission} to  getFromConfig("ban_permission")
+	set {unban_permission} to getFromConfig("unban_permission")
+	set {kick_permission} to getFromConfig("kick_permission")
+	set {kick_message} to getFromConfig("kick_message")
+	set {kick_usage} to getFromConfig("kick_usage")
+
+
+	send "---------------------------------------------" to console
+	send "%{prefix}% &aPunishment skript Parancsok - &aBetöltés..." to console
+	send "%{prefix}% &aPunishment skript Parancsok - &aSikeres betöltés!" to console
+	send "---------------------------------------------" to console
+
+# Reload
+on load:
+	set {prefix} to getFromConfig("prefix")
+	set {url} to getFromConfig("url")
+
+
+#*************************#
+#                         #
+#      	    Ban           #
+#                         #
+#*************************#
+
+command /ban [<offline player>] [<text>] [<timespan>]:
+	permission: {ban_permission}
+	permission message: "%{prefix}% %{permission_message}%"
+	executable by: console and players
+	trigger:
+		if arg-1 is set:
+			if arg-2 is set:
+				ban arg-1 due to arg-2
+				kick arg-1 due to arg-2
+				if arg-3 is set:
+					send "a"
+			else:
+				ban arg-1 due to "%{temporary_ban_message}%"
+				kick arg-1 due to "%{temporary_ban_message}%"
+				
+		else:
+			message "Használat /ban [játékosnév] [ok] [idő]"
+
+#*************************#
+#                         #
+#      	   Unban          #
+#                         #
+#*************************#
+
+command /unban [<offline player>] [<text>]:
+	permission: {unban_permission}
+	permission message: "%{prefix}% %{permission_message}%"
+	executable by: console and players
+	trigger:
+		if arg-1 is set:
+			if arg-2 is set:
+				unban arg-1
+			else:
+				unban arg-1
+		else:
+			message "Használat /unban [játékosnév] [ok]"
+
+#*************************#
+#                         #
+#      	   Kick           #
+#                         #
+#*************************#
+
+command /kick [<offline player>] [<text>]:
+	permission: {kick_permission}
+	permission message: "%{prefix}% %{permission_message}%"
+	executable by: console and players
+	trigger:
+		if arg-1 is set:
+			if arg-2 is set:
+				kick arg-1 due to arg-2
+			else:
+				kick arg-1 due to "%{kick_message}%"
+		else:
+			message "%{prefix}% %{kick_usage}%"
