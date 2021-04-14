@@ -16,7 +16,9 @@ on load:
 	set {options::kick_message} to "Kickelve lettél"
 
 	set {options::discordbot_name} to "SK-test"
-	set {options::discordbot_TOKEN} to "NjEzMjc3NDU1NzA0MTI5NTU3.XVulIw.3bQPquk7LksRgfm5g65dhgf8ESY"
+	set {options::discordbot_TOKEN} to "NjEzMjc3NDU1NzA0MTI5NTU3.XVulIw.1vaEad1gt4liaQMftdaFcXCtQsA"
+	set {options::discordbot_watching} to "Szever lol"
+	set {options::discordbot_reportChannel} to "829052591139848242"
 	
 	set {options::version} to "1.0.4"
 	set {options::url} to "https://pastebin.com/raw/RbzMPk3L"
