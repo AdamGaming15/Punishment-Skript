@@ -14,23 +14,15 @@ Készítette: **[AdamGaming14](https://www.youtube.com/channel/UCMW9GpGBMsOtKGsN
 - [ ] Ban/Unban
 - [ ] Kick
 - [ ] Hex color 1.16+
-- [ ] Update check
-- [x] Config fájl
-- [ ] Discord (Report rendszer)
+- [x] Update check
+- [x] Discord (Report rendszer)
 - [ ] Report rendszer
 
 ## **Követelmények\Requirements:**
 
 - **[Skript](https://github.com/SkriptLang/Skript/releases)**
-- **[SkQuery](https://forums.skunity.com/resources/skquery-1-9-1-16.68/)**
-- **[Skript-yaml](https://github.com/Sashie/skript-yaml/releases/)**
-- **[SkUtilities](https://github.com/tim740/skUtilities/releases/)**
-- **[Skript-json](https://github.com/btk5h/skript-json/releases)**
-- **[skript-reflect](https://forums.skunity.com/resources/skript-reflect.1146/) - skript-mirror egy stabilabb "fork"-ja**
-- **[json.sk](https://forums.skunity.com/resources/json-sk.23/)**
-- **[ThatPacketAddon](https://forums.skunity.com/resources/thatpacketaddon.847/) - MundoSk helyett**
-
-- **[Vixio](https://github.com/iBlitzkriegi/Vixio/releases) - egyenlőre nem követelmény**
+- **[Disky](https://github.com/SkyCraft78/DiSky/releases)**
+- **[Reqn](https://github.com/btk5h/reqn/releases)**
 
 ## **Parancsok:**
 
