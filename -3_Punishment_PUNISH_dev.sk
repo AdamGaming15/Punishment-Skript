@@ -1,0 +1,64 @@
+#Getter
+
+
+#*************************#
+#                         #
+#      	    Ban           #
+#                         #
+#*************************#
+
+command /ban [<offline player>] [<text>] [<timespan>]:
+	permission: {@ban_permission}
+	permission message: {@prefix} {@permission_message}
+	executable by: console and players
+	trigger:
+		if arg-1 is set:
+			if arg-2 is set:
+				ban arg-1 due to arg-2
+				kick arg-1 due to arg-2
+				if arg-3 is set:
+					send "a"
+			else:
+				ban arg-1 due to "{@forver_ban_message}"
+				kick arg-1 due to "{@forver_ban_message}"
+				
+		else:
+			message "Használat /ban [játékosnév] [ok] [idő]"
+
+#*************************#
+#                         #
+#      	   Unban          #
+#                         #
+#*************************#
+
+command /unban [<offline player>] [<text>]:
+	permission: {@unban_permission}
+	permission message: {@prefix} {@permission_message}
+	executable by: console and players
+	trigger:
+		if arg-1 is set:
+			if arg-2 is set:
+				unban arg-1
+			else:
+				unban arg-1
+		else:
+			message "Használat /unban [játékosnév] [ok]"
+
+#*************************#
+#                         #
+#      	   Kick           #
+#                         #
+#*************************#
+
+command /kick [<offline player>] [<text>]:
+	permission: {@kick_permission}
+	permission message: {@prefix} {@permission_message}
+	executable by: console and players
+	trigger:
+		if arg-1 is set:
+			if arg-2 is set:
+				kick arg-1 due to arg-2
+			else:
+				kick arg-1 due to "{@kick_message}"
+		else:
+			message "{@prefix} {@kick_usage}"

@@ -1,0 +1,31 @@
+on load:
+	set {options::prefix} to "&7[&cPunishment-&aDEV]"
+
+	set {options::permission_message} to "&cNincs jogod ehhez!"
+	set {options::main_command_permission} to "punishment.use"
+	set {options::ban_permission} to "punishment.ban"
+	set {options::unban_permission} to "punishment.unban"
+	set {options::kick_permission} to "punishment.kick"
+	set {options::main_command_usage} to "&cHasználat /punishmnet help"
+	set {options::ban_usage} to " &cHasználat /ban"
+	set {options::unban_usage} to "&cHasználat /unban"
+	set {options::kick_usage} to "&cHasználat /kick"
+	set {options::forver_ban_message} to "Bannolva lettél"
+	set {options::ban_message} to "Bannolva lettél"
+	set {options::unban_message} to "Unbannolva lettél"
+	set {options::kick_message} to "Kickelve lettél"
+
+	set {options::discordbot_name} to "SK-test"
+	set {options::discordbot_TOKEN} to "TOKEN"
+	set {options::discordbot_watching} to "Szever lol"
+	set {options::discordbot_reportChannel} to "829052591139848242"
+	
+	set {options::version} to "1.0.4"
+	set {options::url} to "https://pastebin.com/raw/RbzMPk3L"
+	set {options::checkUpdates} to "false"
+	
+	set {options::updatelog} to "https://github.com/InternalGaming02/BanGUI-Skript/releases"
+
+# Setter
+function getFromConfig(configValue: text ) :: text:
+	return {options::%{_configValue}%}
