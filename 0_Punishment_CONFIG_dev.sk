@@ -26,7 +26,7 @@ on load:
 	set {options::discordbot_reportChannel} to "829052591139848242"
 	
 	# Updater
-	set {options::version} to "1.0.4"
+	set {options::version} to "1.0.3"
 	set {options::url} to "https://pastebin.com/raw/RbzMPk3L"
 	# Updater on/off
 	set {options::checkUpdates} to "false"
