@@ -53,8 +53,9 @@ function punishmentHelpForPlayer(commandSender: executor):
 
 function punishmentUpdateHelpForPlayer(commandSender: executor):
 	
-    if {_commandExecutor} is player:
+    if {_commandSender} is player:
         set {_ver} to getVersionFromUrl("%{url}%")
+        broadcast "%{_ver}%"
         send "&7---------------------&bSegítség&7---------------------" to {_commandSender}
         if "%{_ver}%" is "%{version}%":
             send "&b<tooltip:&bA legfrissebb verzió van a rendszeren>punishment update check<reset>- &7Verziószám ellenőrzése" to {_commandSender}
